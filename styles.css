@@ -1,0 +1,33 @@
+.header {
+    background: linear-gradient(to right, #4a90e2, #9013fe);
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+.main-content {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 10px;
+    }
+    .main-content {
+        padding: 10px;
+    }
+    .footer {
+        padding: 5px;
+    }
+}
