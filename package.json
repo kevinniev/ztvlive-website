@@ -1,0 +1,9 @@
+{
+  "name": "ztvlive-website",
+  "version": "1.0.0",
+  "description": "Streaming platform for ztvlivestream.com",
+  "homepage": "https://ztvlivestream.com",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
