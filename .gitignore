@@ -1,0 +1,27 @@
+# Node modules
+node_modules/
+
+# IDE files
+.vscode/
+*.sublime-* 
+.idea/
+
+# Build files
+/dist/
+/build/
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Cache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
