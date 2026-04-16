@@ -1,0 +1,15 @@
+# app-ads.txt file for ZTVLIVE
+# This file declares authorized digital advertising sellers for ZTVLIVE
+# Contact: support@ztvlivestream.com
+# Last updated: December 2025
+
+# Format: <domain>, <publisher_id>, <relationship>, <certification_authority_id>
+# relationship: DIRECT (you control the account) or RESELLER (third-party sells on your behalf)
+
+# Currently, ZTVLIVE does not partner with external ad networks.
+# All advertising is managed directly through the app.
+# This file will be updated when ad network partnerships are established.
+
+# Placeholder for future ad network integrations:
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+# amazon-adsystem.com, XXXX, DIRECT

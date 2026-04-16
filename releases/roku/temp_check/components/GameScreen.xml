@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- GameScreen.xml - v7.0 Web-Style Layout (Matches LiveSurveyOverlay) -->
+<component name="GameScreen" extends="Group">
+    <interface>
+        <field id="gameState" type="assocarray" />
+        <field id="playerScore" type="integer" value="0" />
+        <field id="playerId" type="string" />
+        <field id="gameLoaded" type="boolean" value="false" alwaysNotify="true" />
+        <function name="handleKeyEvent" />
+    </interface>
+    
+    <script type="text/brightscript" uri="pkg:/components/GameScreen.brs" />
+    
+    <children>
+        <!-- Content area fits in 1700 x 1000 window -->
+        
+        <!-- Background with gradient effect (purple to dark) -->
+        <Rectangle width="1700" height="1000" color="#1A0A2E" />
+        <Rectangle width="1700" height="500" color="#2D1B4E" translation="[0, 0]" opacity="0.5" />
+        
+        <!-- MAIN GAME CONTAINER (centered card like web) -->
+        <Group id="gameContainer" translation="[250, 50]">
+            
+            <!-- Game Card Background -->
+            <Rectangle width="1200" height="900" color="#1E1E2E" />
+            <Rectangle width="1196" height="896" color="#0D0D1A" translation="[2, 2]" />
+            
+            <!-- ===== HEADER BAR (Purple gradient like web) ===== -->
+            <Group translation="[0, 0]">
+                <Rectangle width="1200" height="60" color="#7B2D8E" />
+                <Rectangle width="1200" height="60" color="#9C27B0" opacity="0.3" />
+                
+                <!-- Sparkle icon + Title -->
+                <Label text="*" font="font:MediumBoldSystemFont" color="#FFD700" translation="[20, 15]" />
+                <Label text="Mystery Money Jackpot" font="font:MediumBoldSystemFont" color="#FFFFFF" translation="[45, 15]" />
+                
+                <!-- Score display -->
+                <Group translation="[900, 12]">
+                    <Rectangle width="100" height="36" color="#000000" opacity="0.4" />
+                    <Label text="*" font="font:SmallBoldSystemFont" color="#FFD700" translation="[12, 8]" />
+                    <Label id="scoreDisplay" text="0" font="font:SmallBoldSystemFont" color="#FFFFFF" translation="[35, 8]" />
+                </Group>
+                
+                <!-- Players count -->
+                <Group translation="[1020, 12]">
+                    <Rectangle width="80" height="36" color="#000000" opacity="0.4" />
+                    <Label id="playersDisplay" text="37" font="font:SmallBoldSystemFont" color="#00BFFF" translation="[15, 8]" />
+                    <Label text="live" font="font:SmallSystemFont" color="#888888" translation="[45, 10]" />
+                </Group>
+                
+                <!-- Close hint -->
+                <Label text="BACK to exit" font="font:SmallSystemFont" color="#FFFFFF" opacity="0.5" translation="[1100, 20]" />
+            </Group>
+            
+            <!-- ===== TIMER ROW ===== -->
+            <Group translation="[20, 80]">
+                <!-- Question timer -->
+                <Group>
+                    <Rectangle width="80" height="50" color="#1A1A2E" />
+                    <Label id="timerDisplay" text="30s" font="font:LargeBoldSystemFont" color="#FFFFFF" translation="[15, 8]" />
+                </Group>
+                
+                <!-- Progress bar -->
+                <Group translation="[100, 15]">
+                    <Rectangle width="800" height="20" color="#333344" />
+                    <Rectangle id="timerProgress" width="600" height="20" color="#9C27B0" />
+                </Group>
+                
+                <!-- Game timer -->
+                <Group translation="[920, 0]">
+                    <Label text="Game ends:" font="font:SmallSystemFont" color="#888888" translation="[0, 5]" />
+                    <Label id="gameEndTimer" text="10:00" font="font:SmallBoldSystemFont" color="#FFFFFF" translation="[0, 25]" />
+                </Group>
+                
+                <!-- Answers count -->
+                <Group translation="[1050, 0]">
+                    <Rectangle width="120" height="50" color="#1A1A2E" />
+                    <Label id="answersCount" text="56" font="font:MediumBoldSystemFont" color="#00BFFF" translation="[15, 5]" />
+                    <Label text="answers" font="font:SmallSystemFont" color="#888888" translation="[15, 28]" />
+                </Group>
+            </Group>
+            
+            <!-- ===== QUESTION CARD (Purple gradient like web) ===== -->
+            <Group id="questionCard" translation="[20, 150]">
+                <Rectangle width="1160" height="120" color="#4A1A6B" />
+                <Rectangle width="1156" height="116" color="#3D1559" translation="[2, 2]" />
+                
+                <Label id="questionText" 
+                       text="What's YOUR generation's biggest contribution to the world?"
+                       font="font:MediumBoldSystemFont" 
+                       color="#FFFFFF"
+                       width="1120"
+                       height="100"
+                       horizAlign="center"
+                       vertAlign="center"
+                       translation="[20, 10]"
+                       wrap="true" />
+            </Group>
+            
+            <!-- ===== JOIN GROUP SECTION ===== -->
+            <Group id="joinSection" translation="[20, 290]">
+                <Rectangle width="1160" height="70" color="#1A1A2E" />
+                
+                <Label text="Join Group:" font="font:SmallBoldSystemFont" color="#888888" translation="[20, 25]" />
+                
+                <!-- Code input -->
+                <Group id="codeInputBtn" translation="[140, 15]">
+                    <Rectangle id="codeInputBg" width="200" height="40" color="#252538" />
+                    <Label id="groupCodeText" text="Enter code..." font="font:SmallSystemFont" color="#666666" translation="[15, 10]" />
+                    <Rectangle id="codeInputFocus" width="200" height="3" color="#9C27B0" translation="[0, 37]" visible="false" />
+                </Group>
+                
+                <!-- Join button -->
+                <Group id="joinBtn" translation="[360, 15]">
+                    <Rectangle id="joinBtnBg" width="100" height="40" color="#4CAF50" />
+                    <Label text="JOIN" font="font:SmallBoldSystemFont" color="#FFFFFF" 
+                           width="100" height="40" horizAlign="center" vertAlign="center" />
+                    <Rectangle id="joinBtnFocus" width="100" height="3" color="#FFFFFF" translation="[0, 37]" visible="false" />
+                </Group>
+                
+                <!-- Create group -->
+                <Group id="createBtn" translation="[480, 15]">
+                    <Rectangle id="createBtnBg" width="150" height="40" color="#333344" />
+                    <Label text="Create Group" font="font:SmallSystemFont" color="#9C27B0" 
+                           width="150" height="40" horizAlign="center" vertAlign="center" />
+                    <Rectangle id="createBtnFocus" width="150" height="3" color="#9C27B0" translation="[0, 37]" visible="false" />
+                </Group>
+                
+                <!-- QR hint -->
+                <Group translation="[900, 5]">
+                    <Label text="Scan to join:" font="font:SmallSystemFont" color="#888888" />
+                    <Label text="ztvlivestream.com/play" font="font:SmallBoldSystemFont" color="#FFD700" translation="[0, 20]" />
+                </Group>
+            </Group>
+            
+            <!-- ===== ANSWER INPUT SECTION ===== -->
+            <Group id="answerSection" translation="[20, 380]">
+                <Rectangle width="1160" height="80" color="#1A1A2E" />
+                
+                <!-- Input field -->
+                <Group id="answerInputBtn" translation="[20, 20]">
+                    <Rectangle id="answerInputBg" width="950" height="45" color="#252538" />
+                    <Label id="answerText" text="Type your answer..." font="font:SmallSystemFont" color="#666666" translation="[20, 12]" />
+                    <Rectangle id="answerInputFocus" width="950" height="3" color="#9C27B0" translation="[0, 42]" visible="false" />
+                </Group>
+                
+                <!-- Send button -->
+                <Group id="sendBtn" translation="[990, 20]">
+                    <Rectangle id="sendBtnBg" width="150" height="45" color="#9C27B0" />
+                    <Label text="SEND" font="font:SmallBoldSystemFont" color="#FFFFFF" 
+                           width="150" height="45" horizAlign="center" vertAlign="center" />
+                    <Rectangle id="sendBtnFocus" width="150" height="3" color="#FFD700" translation="[0, 42]" visible="false" />
+                </Group>
+            </Group>
+            
+            <!-- ===== TOP 4 ANSWERS (shown after answering) ===== -->
+            <Group id="resultsSection" translation="[20, 480]" visible="true">
+                <Rectangle width="1160" height="400" color="#1A1A2E" />
+                
+                <Label text="TOP ANSWERS" font="font:SmallBoldSystemFont" color="#FFD700" translation="[20, 15]" />
+                
+                <!-- Answer 1 -->
+                <Group translation="[20, 50]">
+                    <Rectangle width="1120" height="70" color="#252538" />
+                    <Label text="1" font="font:MediumBoldSystemFont" color="#FFD700" translation="[20, 22]" />
+                    <Label id="ans1Text" text="Social Media" font="font:SmallBoldSystemFont" color="#FFFFFF" translation="[60, 15]" />
+                    <Label id="ans1Count" text="23 answers (41%)" font="font:SmallSystemFont" color="#9C27B0" translation="[60, 40]" />
+                    <Rectangle width="800" height="8" color="#333344" translation="[250, 50]" />
+                    <Rectangle id="ans1Bar" width="500" height="8" color="#9C27B0" translation="[250, 50]" />
+                </Group>
+                
+                <!-- Answer 2 -->
+                <Group translation="[20, 130]">
+                    <Rectangle width="1120" height="70" color="#252538" />
+                    <Label text="2" font="font:MediumBoldSystemFont" color="#C0C0C0" translation="[20, 22]" />
+                    <Label id="ans2Text" text="Smartphones" font="font:SmallBoldSystemFont" color="#FFFFFF" translation="[60, 15]" />
+                    <Label id="ans2Count" text="18 answers (32%)" font="font:SmallSystemFont" color="#9C27B0" translation="[60, 40]" />
+                    <Rectangle width="800" height="8" color="#333344" translation="[250, 50]" />
+                    <Rectangle id="ans2Bar" width="400" height="8" color="#9C27B0" translation="[250, 50]" />
+                </Group>
+                
+                <!-- Answer 3 -->
+                <Group translation="[20, 210]">
+                    <Rectangle width="1120" height="70" color="#252538" />
+                    <Label text="3" font="font:MediumBoldSystemFont" color="#CD7F32" translation="[20, 22]" />
+                    <Label id="ans3Text" text="Climate Awareness" font="font:SmallBoldSystemFont" color="#FFFFFF" translation="[60, 15]" />
+                    <Label id="ans3Count" text="12 answers (21%)" font="font:SmallSystemFont" color="#9C27B0" translation="[60, 40]" />
+                    <Rectangle width="800" height="8" color="#333344" translation="[250, 50]" />
+                    <Rectangle id="ans3Bar" width="260" height="8" color="#9C27B0" translation="[250, 50]" />
+                </Group>
+                
+                <!-- Answer 4 -->
+                <Group translation="[20, 290]">
+                    <Rectangle width="1120" height="70" color="#252538" />
+                    <Label text="4" font="font:SmallBoldSystemFont" color="#888888" translation="[20, 22]" />
+                    <Label id="ans4Text" text="Memes" font="font:SmallBoldSystemFont" color="#FFFFFF" translation="[60, 15]" />
+                    <Label id="ans4Count" text="8 answers (14%)" font="font:SmallSystemFont" color="#9C27B0" translation="[60, 40]" />
+                    <Rectangle width="800" height="8" color="#333344" translation="[250, 50]" />
+                    <Rectangle id="ans4Bar" width="175" height="8" color="#9C27B0" translation="[250, 50]" />
+                </Group>
+            </Group>
+        </Group>
+        
+        <!-- ===== KEYBOARD OVERLAY ===== -->
+        <Group id="keyboardOverlay" translation="[250, 200]" visible="false">
+            <Rectangle width="1200" height="550" color="#000000EE" />
+            <Rectangle width="1196" height="546" color="#1A1A2E" translation="[2, 2]" />
+            
+            <Label text="TYPE YOUR ANSWER" font="font:MediumBoldSystemFont" color="#FFFFFF" translation="[450, 25]" />
+            
+            <!-- Input display -->
+            <Group translation="[50, 70]">
+                <Rectangle width="1100" height="50" color="#252538" />
+                <Label id="kbInputText" text="" font="font:SmallSystemFont" color="#FFFFFF" translation="[20, 15]" />
+            </Group>
+            
+            <!-- Keyboard rows -->
+            <Group id="kbRow1" translation="[50, 140]" />
+            <Group id="kbRow2" translation="[90, 210]" />
+            <Group id="kbRow3" translation="[130, 280]" />
+            <Group id="kbRow4" translation="[200, 350]" />
+            
+            <Label text="D-Pad: Move | OK: Type | BACK: Send &amp; Close" 
+                   font="font:SmallSystemFont" color="#888888" translation="[380, 450]" />
+        </Group>
+    </children>
+</component>

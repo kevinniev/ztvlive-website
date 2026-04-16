@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- ApiHelper.xml - Handles all ZTVLIVE API communication (v2.1) -->
+<component name="ApiHelper" extends="Node">
+    <interface>
+        <field id="baseUrl" type="string" value="https://www.ztvlivestream.com/api" />
+        <field id="feedData" type="assocarray" />
+        <field id="liveFeeds" type="array" />
+        <field id="tvSync" type="assocarray" />
+        <field id="gameState" type="assocarray" />
+        <field id="scheduleData" type="array" />
+        <field id="uiStrings" type="assocarray" />
+        <field id="languages" type="assocarray" />
+        <field id="lastError" type="string" />
+    </interface>
+    <script type="text/brightscript" uri="pkg:/components/ApiHelper.brs" />
+</component>

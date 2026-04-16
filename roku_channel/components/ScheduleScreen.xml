@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- ScheduleScreen.xml - Premium schedule layout -->
+<component name="ScheduleScreen" extends="Group">
+    <interface>
+        <field id="scheduleData" type="array" />
+        <field id="scheduleLoaded" type="boolean" value="false" alwaysNotify="true" />
+        <function name="handleKeyEvent" />
+    </interface>
+    
+    <script type="text/brightscript" uri="pkg:/components/ScheduleScreen.brs" />
+    
+    <children>
+        <!-- Header -->
+        <Group translation="[40, 20]">
+            <Label text="PROGRAM SCHEDULE" font="font:LargeBoldSystemFont" color="#FFFFFF" />
+            <Label id="dateLabel" text="Today" font="font:SmallSystemFont" color="#888888" translation="[0, 50]" />
+        </Group>
+        
+        <!-- Time slots header -->
+        <Group translation="[300, 90]">
+            <Rectangle width="1400" height="50" color="#1A1A1A" />
+            <Label text="6:00 PM" font="font:SmallBoldSystemFont" color="#E50914" translation="[20, 15]" />
+            <Label text="7:00 PM" font="font:SmallBoldSystemFont" color="#888888" translation="[200, 15]" />
+            <Label text="8:00 PM" font="font:SmallBoldSystemFont" color="#888888" translation="[400, 15]" />
+            <Label text="9:00 PM" font="font:SmallBoldSystemFont" color="#888888" translation="[600, 15]" />
+            <Label text="10:00 PM" font="font:SmallBoldSystemFont" color="#888888" translation="[800, 15]" />
+            <Label text="11:00 PM" font="font:SmallBoldSystemFont" color="#888888" translation="[1000, 15]" />
+        </Group>
+        
+        <!-- Now Playing indicator -->
+        <Rectangle width="4" height="800" color="#E50914" translation="[318, 140]" />
+        
+        <!-- Schedule Items -->
+        <Group id="scheduleList" translation="[40, 150]">
+            <!-- Item 1 - NOW PLAYING (highlighted) -->
+            <Group id="item0" translation="[0, 0]">
+                <Rectangle width="240" height="120" color="#1A1A1A">
+                    <Label text="NOW" font="font:SmallBoldSystemFont" color="#E50914" translation="[10, 10]" />
+                </Rectangle>
+                <Rectangle id="itemBg0" width="1100" height="120" color="#E5091420" translation="[260, 0]" />
+                <Poster id="itemPoster0" width="180" height="110" translation="[270, 5]" loadDisplayMode="scaleToZoom" />
+                <Label id="itemTitle0" text="Music Mix Live" font="font:MediumBoldSystemFont" color="#FFFFFF" translation="[470, 20]" />
+                <Label id="itemDesc0" text="Top hits from around the world" font="font:SmallSystemFont" color="#888888" translation="[470, 55]" />
+                <Label text="LIVE" font="font:SmallBoldSystemFont" color="#E50914" translation="[470, 85]" />
+                <Rectangle id="itemFocus0" width="1360" height="4" color="#E50914" translation="[0, 116]" visible="true" />
+            </Group>
+            
+            <!-- Item 2 -->
+            <Group id="item1" translation="[0, 140]">
+                <Rectangle width="240" height="120" color="#1A1A1A">
+                    <Label text="7:00 PM" font="font:SmallSystemFont" color="#888888" translation="[10, 50]" />
+                </Rectangle>
+                <Rectangle id="itemBg1" width="1100" height="120" color="#1A1A1A" translation="[260, 0]" />
+                <Poster id="itemPoster1" width="180" height="110" translation="[270, 5]" loadDisplayMode="scaleToZoom" />
+                <Label id="itemTitle1" text="Sports Highlights" font="font:MediumBoldSystemFont" color="#FFFFFF" translation="[470, 20]" />
+                <Label id="itemDesc1" text="Best plays of the week" font="font:SmallSystemFont" color="#888888" translation="[470, 55]" />
+                <Rectangle id="itemFocus1" width="1360" height="4" color="#E50914" translation="[0, 116]" visible="false" />
+            </Group>
+            
+            <!-- Item 3 -->
+            <Group id="item2" translation="[0, 280]">
+                <Rectangle width="240" height="120" color="#1A1A1A">
+                    <Label text="8:00 PM" font="font:SmallSystemFont" color="#888888" translation="[10, 50]" />
+                </Rectangle>
+                <Rectangle id="itemBg2" width="1100" height="120" color="#1A1A1A" translation="[260, 0]" />
+                <Poster id="itemPoster2" width="180" height="110" translation="[270, 5]" loadDisplayMode="scaleToZoom" />
+                <Label id="itemTitle2" text="Movie Trailers" font="font:MediumBoldSystemFont" color="#FFFFFF" translation="[470, 20]" />
+                <Label id="itemDesc2" text="Latest Hollywood releases" font="font:SmallSystemFont" color="#888888" translation="[470, 55]" />
+                <Rectangle id="itemFocus2" width="1360" height="4" color="#E50914" translation="[0, 116]" visible="false" />
+            </Group>
+            
+            <!-- Item 4 -->
+            <Group id="item3" translation="[0, 420]">
+                <Rectangle width="240" height="120" color="#1A1A1A">
+                    <Label text="9:00 PM" font="font:SmallSystemFont" color="#888888" translation="[10, 50]" />
+                </Rectangle>
+                <Rectangle id="itemBg3" width="1100" height="120" color="#1A1A1A" translation="[260, 0]" />
+                <Poster id="itemPoster3" width="180" height="110" translation="[270, 5]" loadDisplayMode="scaleToZoom" />
+                <Label id="itemTitle3" text="Game Show Live" font="font:MediumBoldSystemFont" color="#FFFFFF" translation="[470, 20]" />
+                <Label id="itemDesc3" text="Win prizes and play along" font="font:SmallSystemFont" color="#888888" translation="[470, 55]" />
+                <Rectangle id="itemFocus3" width="1360" height="4" color="#E50914" translation="[0, 116]" visible="false" />
+            </Group>
+            
+            <!-- Item 5 -->
+            <Group id="item4" translation="[0, 560]">
+                <Rectangle width="240" height="120" color="#1A1A1A">
+                    <Label text="10:00 PM" font="font:SmallSystemFont" color="#888888" translation="[10, 50]" />
+                </Rectangle>
+                <Rectangle id="itemBg4" width="1100" height="120" color="#1A1A1A" translation="[260, 0]" />
+                <Poster id="itemPoster4" width="180" height="110" translation="[270, 5]" loadDisplayMode="scaleToZoom" />
+                <Label id="itemTitle4" text="Late Night Mix" font="font:MediumBoldSystemFont" color="#FFFFFF" translation="[470, 20]" />
+                <Label id="itemDesc4" text="Chill beats and vibes" font="font:SmallSystemFont" color="#888888" translation="[470, 55]" />
+                <Rectangle id="itemFocus4" width="1360" height="4" color="#E50914" translation="[0, 116]" visible="false" />
+            </Group>
+        </Group>
+        
+        <!-- Last Updated -->
+        <Label id="lastUpdated" text="Last updated: Just now" font="font:SmallSystemFont" color="#666666" translation="[40, 980]" />
+    </children>
+</component>

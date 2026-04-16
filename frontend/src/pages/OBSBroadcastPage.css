@@ -1,0 +1,105 @@
+/* OBS Broadcast Page Styles - Creator Content Scene */
+
+.obs-broadcast-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.obs-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #333;
+  font-size: 16px;
+  font-family: system-ui, sans-serif;
+}
+
+.obs-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.obs-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 40px); /* Leave space for ticker */
+  z-index: 100;
+  cursor: none;
+  pointer-events: none;
+}
+
+/* Our World Scrolling Ticker */
+.obs-ticker-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(90deg, #dc2626 0%, #b91c1c 50%, #dc2626 100%);
+  overflow: hidden;
+  z-index: 200;
+}
+
+.obs-ticker-content {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  white-space: nowrap;
+  animation: obs-ticker-scroll 60s linear infinite;
+}
+
+.obs-ticker-text {
+  display: inline-block;
+  padding-left: 100%;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@keyframes obs-ticker-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Ensure ticker is always visible */
+.obs-ticker-container::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60px;
+  height: 100%;
+  background: linear-gradient(90deg, #dc2626, transparent);
+  z-index: 1;
+}
+
+.obs-ticker-container::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 60px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, #dc2626);
+  z-index: 1;
+}

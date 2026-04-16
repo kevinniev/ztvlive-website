@@ -1,0 +1,79 @@
+# ZTVLIVE Robots.txt
+# https://www.ztvlivestream.com
+# Free 24/7 Live Streaming TV
+
+# Allow all search engines full access
+User-agent: *
+Allow: /
+
+# Disallow admin and API routes
+Disallow: /admin
+Disallow: /api/
+Disallow: /auth/callback
+
+# Block old/legacy URL patterns that no longer exist
+# These redirect to new URLs but we want Google to stop crawling them
+Disallow: /stream/
+Disallow: /watch/stream/
+Disallow: /category/
+Disallow: /on-demand
+
+# Block internal/test pages
+Disallow: /roku-tv
+Disallow: /roku-stream
+Disallow: /broadcast
+Disallow: /broadcast-test
+Disallow: /roku-feed
+Disallow: /bigscreen-test
+Disallow: /intro
+Disallow: /reward-demo
+Disallow: /doordash-demo
+Disallow: /vote/
+
+# Sitemaps
+Sitemap: https://www.ztvlivestream.com/sitemap.xml
+
+# Google specific - full access to main content
+User-agent: Googlebot
+Allow: /
+Allow: /watch
+Allow: /play
+Allow: /library
+Allow: /browse
+Allow: /schedule
+Allow: /rewards
+Allow: /blog
+Allow: /promo
+Disallow: /stream/
+Disallow: /category/
+Crawl-delay: 0
+
+# Google Images
+User-agent: Googlebot-Image
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /stream/
+Disallow: /category/
+Crawl-delay: 1
+
+# Social Media Crawlers (for rich previews)
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# Host directive for canonical domain
+Host: https://www.ztvlivestream.com

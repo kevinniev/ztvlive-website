@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline - ZTV LIVE</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #09090b;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      text-align: center;
+      max-width: 400px;
+    }
+    .logo {
+      width: 80px;
+      height: 80px;
+      background: #dc2626;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+    .logo svg {
+      width: 48px;
+      height: 48px;
+      fill: white;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+    p {
+      color: #a1a1aa;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .retry-btn {
+      background: #dc2626;
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: background 0.2s;
+    }
+    .retry-btn:hover {
+      background: #ef4444;
+    }
+    .status {
+      margin-top: 24px;
+      padding: 12px 20px;
+      background: #27272a;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #71717a;
+    }
+    .status.online {
+      background: #166534;
+      color: #86efac;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/>
+        <polyline points="17 2 12 7 7 2"/>
+      </svg>
+    </div>
+    <h1>ZTV LIVE</h1>
+    <p>You're currently offline. Check your internet connection and try again to access live streaming content.</p>
+    <button class="retry-btn" onclick="window.location.reload()">Try Again</button>
+    <div class="status" id="status">Checking connection...</div>
+  </div>
+
+  <script>
+    function updateStatus() {
+      const statusEl = document.getElementById('status');
+      if (navigator.onLine) {
+        statusEl.textContent = 'Connection restored! Reloading...';
+        statusEl.classList.add('online');
+        setTimeout(() => window.location.reload(), 1000);
+      } else {
+        statusEl.textContent = 'No internet connection';
+        statusEl.classList.remove('online');
+      }
+    }
+
+    window.addEventListener('online', updateStatus);
+    window.addEventListener('offline', updateStatus);
+    updateStatus();
+  </script>
+</body>
+</html>

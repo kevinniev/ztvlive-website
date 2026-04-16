@@ -1,0 +1,37 @@
+
+============================================================
+ZTVLIVE SOCIAL MEDIA AD KIT GENERATOR
+============================================================
+
+Generating videos for multiple platforms...
+This will take approximately 10-15 minutes total.
+
+
+[1/2] TikTok/Reels Vertical (9:16)
+
+==================================================
+Generating: ztvlive_vertical_9x16.mp4
+Size: 1024x1792, Duration: 8s
+==================================================
+Error initiating video generation: 400 Client Error: Bad Request for url: https://integrations.emergentagent.com/llm/openai/v1/videos
+Response content: {"error":{"message":"{\n  \"error\": {\n    \"message\": \"Invalid size for sora-2 model, only 720x1280, 1280x720 are supported.\",\n    \"type\": \"invalid_request_error\",\n    \"param\": null,\n    \"code\": null\n  }\n}","type":"None","param":"None","code":"400"}}
+❌ FAILED: ztvlive_vertical_9x16.mp4
+
+[2/2] Instagram/Facebook Square (1:1)
+
+==================================================
+Generating: ztvlive_square_1x1.mp4
+Size: 1024x1024, Duration: 8s
+==================================================
+Error initiating video generation: 400 Client Error: Bad Request for url: https://integrations.emergentagent.com/llm/openai/v1/videos
+Response content: {"error":{"message":"{\n  \"error\": {\n    \"message\": \"Invalid value: '1024x1024'. Supported values are: '720x1280', '1280x720', '1024x1792', and '1792x1024'.\",\n    \"type\": \"invalid_request_error\",\n    \"param\": \"size\",\n    \"code\": \"invalid_value\"\n  }\n}","type":"None","param":"None","code":"400"}}
+❌ FAILED: ztvlive_square_1x1.mp4
+
+============================================================
+AD KIT GENERATION COMPLETE!
+============================================================
+
+📦 Generated Files:
+   ❌ vertical: FAILED
+   ❌ square: FAILED
+   ✅ horizontal (16:9): /app/backend/ztvlive_promo_premium.mp4 (existing)

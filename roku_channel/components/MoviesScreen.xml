@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- MoviesScreen.xml - Netflix-style layout -->
+<component name="MoviesScreen" extends="Group">
+    <interface>
+        <field id="contentLoaded" type="boolean" value="false" alwaysNotify="true" />
+        <field id="goToLive" type="boolean" value="false" alwaysNotify="true" />
+        <function name="handleKeyEvent" />
+    </interface>
+    
+    <script type="text/brightscript" uri="pkg:/components/MoviesScreen.brs" />
+    
+    <children>
+        <!-- HERO BANNER (Netflix style - large featured content) -->
+        <Group id="heroBanner" translation="[0, 0]">
+            <Rectangle width="1720" height="550" color="#1A1A1A" />
+            <Video id="heroVideo" width="1720" height="550" />
+            
+            <!-- Gradient overlay (bottom fade for text readability) -->
+            <Rectangle width="1720" height="200" color="#000000" opacity="0" translation="[0, 350]" />
+            
+            <!-- Hero Content Info (bottom left) -->
+            <Group translation="[50, 380]">
+                <Label text="TOP 10" font="font:SmallBoldSystemFont" color="#E50914" />
+                <Rectangle width="30" height="30" color="#E50914" translation="[70, -5]">
+                    <Label text="1" font="font:SmallBoldSystemFont" color="#FFFFFF"
+                           width="30" height="30" horizAlign="center" vertAlign="center" />
+                </Rectangle>
+                
+                <Label id="heroTitle" text="Featured Movie" font="font:LargeBoldSystemFont" 
+                       color="#FFFFFF" translation="[0, 40]" />
+                <Label id="heroDesc" text="Action • 2h 15m • 2026" font="font:SmallSystemFont" 
+                       color="#888888" translation="[0, 90]" />
+                
+                <!-- Play & More Info buttons (Netflix style) -->
+                <Group translation="[0, 130]">
+                    <Group id="playBtn">
+                        <Rectangle id="playBtnBg" width="140" height="45" color="#FFFFFF" />
+                        <Label text="▶ Play" font="font:SmallBoldSystemFont" color="#000000"
+                               width="140" height="45" horizAlign="center" vertAlign="center" />
+                    </Group>
+                    <Group translation="[160, 0]">
+                        <Rectangle width="160" height="45" color="#50505080" />
+                        <Label text="ⓘ More Info" font="font:SmallBoldSystemFont" color="#FFFFFF"
+                               width="160" height="45" horizAlign="center" vertAlign="center" />
+                    </Group>
+                </Group>
+            </Group>
+            
+            <!-- Focus indicator -->
+            <Rectangle id="heroFocus" width="1720" height="6" color="#E50914" translation="[0, 544]" visible="true" />
+        </Group>
+        
+        <!-- TRENDING NOW Row -->
+        <Group translation="[50, 580]">
+            <Label text="Trending Now" font="font:MediumBoldSystemFont" color="#FFFFFF" />
+            <Group id="trendingRow" translation="[0, 45]">
+                <Group id="trend0">
+                    <Rectangle width="220" height="330" color="#1A1A1A" />
+                    <Poster id="trendPoster0" width="220" height="330" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="trendFocus0" width="220" height="4" color="#E50914" translation="[0, 326]" visible="false" />
+                    <!-- Rank number -->
+                    <Label text="1" font="font:LargeBoldSystemFont" color="#FFFFFF" translation="[10, 280]" />
+                </Group>
+                <Group id="trend1" translation="[240, 0]">
+                    <Rectangle width="220" height="330" color="#1A1A1A" />
+                    <Poster id="trendPoster1" width="220" height="330" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="trendFocus1" width="220" height="4" color="#E50914" translation="[0, 326]" visible="false" />
+                    <Label text="2" font="font:LargeBoldSystemFont" color="#FFFFFF" translation="[10, 280]" />
+                </Group>
+                <Group id="trend2" translation="[480, 0]">
+                    <Rectangle width="220" height="330" color="#1A1A1A" />
+                    <Poster id="trendPoster2" width="220" height="330" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="trendFocus2" width="220" height="4" color="#E50914" translation="[0, 326]" visible="false" />
+                    <Label text="3" font="font:LargeBoldSystemFont" color="#FFFFFF" translation="[10, 280]" />
+                </Group>
+                <Group id="trend3" translation="[720, 0]">
+                    <Rectangle width="220" height="330" color="#1A1A1A" />
+                    <Poster id="trendPoster3" width="220" height="330" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="trendFocus3" width="220" height="4" color="#E50914" translation="[0, 326]" visible="false" />
+                    <Label text="4" font="font:LargeBoldSystemFont" color="#FFFFFF" translation="[10, 280]" />
+                </Group>
+                <Group id="trend4" translation="[960, 0]">
+                    <Rectangle width="220" height="330" color="#1A1A1A" />
+                    <Poster id="trendPoster4" width="220" height="330" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="trendFocus4" width="220" height="4" color="#E50914" translation="[0, 326]" visible="false" />
+                    <Label text="5" font="font:LargeBoldSystemFont" color="#FFFFFF" translation="[10, 280]" />
+                </Group>
+                <Group id="trend5" translation="[1200, 0]">
+                    <Rectangle width="220" height="330" color="#1A1A1A" />
+                    <Poster id="trendPoster5" width="220" height="330" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="trendFocus5" width="220" height="4" color="#E50914" translation="[0, 326]" visible="false" />
+                    <Label text="6" font="font:LargeBoldSystemFont" color="#FFFFFF" translation="[10, 280]" />
+                </Group>
+            </Group>
+        </Group>
+    </children>
+</component>

@@ -1,0 +1,93 @@
+/* App-specific styles */
+.App {
+  min-height: 100vh;
+  background-color: #09090b;
+}
+
+/* Hover card effects */
+.highlight-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.highlight-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+}
+
+/* Player controls overlay */
+.player-controls {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.player-wrapper:hover .player-controls {
+  opacity: 1;
+}
+
+/* Chat message animation */
+@keyframes chat-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chat-message {
+  animation: chat-slide-in 0.3s ease forwards;
+}
+
+/* Bento grid item sizes */
+.bento-hero {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+@media (max-width: 768px) {
+  .bento-hero {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
+
+/* Navigation active state */
+.nav-link-active {
+  position: relative;
+}
+
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #8b5cf6;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+}
+
+/* Volume slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  background: transparent;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  cursor: pointer;
+  margin-top: -4px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  background: #3f3f46;
+  border-radius: 2px;
+}

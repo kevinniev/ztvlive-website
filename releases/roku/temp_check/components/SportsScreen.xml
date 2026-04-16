@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- SportsScreen.xml - ESPN-style layout with scores -->
+<component name="SportsScreen" extends="Group">
+    <interface>
+        <field id="contentLoaded" type="boolean" value="false" alwaysNotify="true" />
+        <field id="goToLive" type="boolean" value="false" alwaysNotify="true" />
+        <function name="handleKeyEvent" />
+    </interface>
+    
+    <script type="text/brightscript" uri="pkg:/components/SportsScreen.brs" />
+    
+    <children>
+        <!-- ESPN-style Header Bar with Scores Ticker -->
+        <Group translation="[0, 0]">
+            <Rectangle width="1720" height="60" color="#CC0000" />
+            <Label text="LIVE SCORES" font="font:SmallBoldSystemFont" color="#FFFFFF" translation="[20, 18]" />
+            
+            <!-- Scrolling scores -->
+            <Group translation="[150, 0]">
+                <Rectangle width="350" height="60" color="#990000" />
+                <Label text="NFL" font="font:SmallBoldSystemFont" color="#FFCC00" translation="[15, 8]" />
+                <Label text="Patriots 24 - Seahawks 21" font="font:SmallSystemFont" color="#FFFFFF" translation="[15, 32]" />
+            </Group>
+            <Group translation="[510, 0]">
+                <Rectangle width="350" height="60" color="#990000" />
+                <Label text="NBA" font="font:SmallBoldSystemFont" color="#FFCC00" translation="[15, 8]" />
+                <Label text="Lakers 108 - Celtics 102" font="font:SmallSystemFont" color="#FFFFFF" translation="[15, 32]" />
+            </Group>
+            <Group translation="[870, 0]">
+                <Rectangle width="350" height="60" color="#990000" />
+                <Label text="EPL" font="font:SmallBoldSystemFont" color="#FFCC00" translation="[15, 8]" />
+                <Label text="Liverpool 2 - Man City 1" font="font:SmallSystemFont" color="#FFFFFF" translation="[15, 32]" />
+            </Group>
+            <Group translation="[1230, 0]">
+                <Rectangle width="350" height="60" color="#990000" />
+                <Label text="MLB" font="font:SmallBoldSystemFont" color="#FFCC00" translation="[15, 8]" />
+                <Label text="Yankees 5 - Red Sox 3" font="font:SmallSystemFont" color="#FFFFFF" translation="[15, 32]" />
+            </Group>
+        </Group>
+        
+        <!-- Main Content Area -->
+        <Group translation="[0, 80]">
+            <!-- Featured Live Event (Large) -->
+            <Group id="featuredEvent" translation="[20, 0]">
+                <Rectangle width="1000" height="500" color="#1A1A1A" />
+                <Video id="sportsVideo" width="1000" height="500" />
+                
+                <!-- LIVE badge -->
+                <Rectangle width="60" height="28" color="#CC0000" translation="[15, 15]">
+                    <Label text="LIVE" font="font:SmallBoldSystemFont" color="#FFFFFF"
+                           width="60" height="28" horizAlign="center" vertAlign="center" />
+                </Rectangle>
+                
+                <!-- Event Info overlay -->
+                <Group translation="[15, 420]">
+                    <Rectangle width="970" height="70" color="#00000090" />
+                    <Label id="eventTitle" text="NFL Sunday Night Football" font="font:MediumBoldSystemFont" 
+                           color="#FFFFFF" translation="[15, 10]" />
+                    <Label id="eventInfo" text="Q4 • 2:34 remaining" font="font:SmallSystemFont" 
+                           color="#FFCC00" translation="[15, 40]" />
+                </Group>
+                
+                <Rectangle id="featuredFocus" width="1000" height="6" color="#CC0000" translation="[0, 494]" visible="true" />
+            </Group>
+            
+            <!-- Right Panel - Upcoming Events -->
+            <Group translation="[1040, 0]">
+                <Label text="UP NEXT" font="font:MediumBoldSystemFont" color="#CC0000" />
+                
+                <Group id="upNextList" translation="[0, 45]">
+                    <Group id="upcoming0">
+                        <Rectangle id="upBg0" width="660" height="100" color="#1A1A1A" />
+                        <Poster id="upPoster0" width="150" height="90" translation="[5, 5]" loadDisplayMode="scaleToZoom" />
+                        <Label id="upTitle0" text="NBA Finals Game 5" font="font:SmallBoldSystemFont" color="#FFFFFF" translation="[170, 15]" />
+                        <Label id="upTime0" text="8:00 PM ET" font="font:SmallSystemFont" color="#FFCC00" translation="[170, 45]" />
+                        <Label text="ESPN" font="font:SmallSystemFont" color="#888888" translation="[170, 70]" />
+                        <Rectangle id="upFocus0" width="660" height="4" color="#CC0000" translation="[0, 96]" visible="false" />
+                    </Group>
+                    
+                    <Group id="upcoming1" translation="[0, 115]">
+                        <Rectangle id="upBg1" width="660" height="100" color="#1A1A1A" />
+                        <Poster id="upPoster1" width="150" height="90" translation="[5, 5]" loadDisplayMode="scaleToZoom" />
+                        <Label id="upTitle1" text="UFC 305: Main Event" font="font:SmallBoldSystemFont" color="#FFFFFF" translation="[170, 15]" />
+                        <Label id="upTime1" text="10:00 PM ET" font="font:SmallSystemFont" color="#FFCC00" translation="[170, 45]" />
+                        <Label text="ESPN+" font="font:SmallSystemFont" color="#888888" translation="[170, 70]" />
+                        <Rectangle id="upFocus1" width="660" height="4" color="#CC0000" translation="[0, 96]" visible="false" />
+                    </Group>
+                    
+                    <Group id="upcoming2" translation="[0, 230]">
+                        <Rectangle id="upBg2" width="660" height="100" color="#1A1A1A" />
+                        <Poster id="upPoster2" width="150" height="90" translation="[5, 5]" loadDisplayMode="scaleToZoom" />
+                        <Label id="upTitle2" text="Champions League Final" font="font:SmallBoldSystemFont" color="#FFFFFF" translation="[170, 15]" />
+                        <Label id="upTime2" text="Tomorrow 3:00 PM" font="font:SmallSystemFont" color="#FFCC00" translation="[170, 45]" />
+                        <Label text="ESPN2" font="font:SmallSystemFont" color="#888888" translation="[170, 70]" />
+                        <Rectangle id="upFocus2" width="660" height="4" color="#CC0000" translation="[0, 96]" visible="false" />
+                    </Group>
+                    
+                    <Group id="upcoming3" translation="[0, 345]">
+                        <Rectangle id="upBg3" width="660" height="100" color="#1A1A1A" />
+                        <Poster id="upPoster3" width="150" height="90" translation="[5, 5]" loadDisplayMode="scaleToZoom" />
+                        <Label id="upTitle3" text="World Series Game 1" font="font:SmallBoldSystemFont" color="#FFFFFF" translation="[170, 15]" />
+                        <Label id="upTime3" text="Fri 7:00 PM" font="font:SmallSystemFont" color="#FFCC00" translation="[170, 45]" />
+                        <Label text="ESPN" font="font:SmallSystemFont" color="#888888" translation="[170, 70]" />
+                        <Rectangle id="upFocus3" width="660" height="4" color="#CC0000" translation="[0, 96]" visible="false" />
+                    </Group>
+                </Group>
+            </Group>
+        </Group>
+        
+        <!-- Bottom - Highlights Row -->
+        <Group translation="[20, 620]">
+            <Label text="TOP HIGHLIGHTS" font="font:MediumBoldSystemFont" color="#FFFFFF" />
+            <Group id="highlightsRow" translation="[0, 40]">
+                <Group id="hl0">
+                    <Rectangle width="330" height="200" color="#1A1A1A" />
+                    <Poster id="hlPoster0" width="330" height="200" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="hlFocus0" width="330" height="4" color="#CC0000" translation="[0, 196]" visible="false" />
+                    <Label text="Top 10 Plays" font="font:SmallBoldSystemFont" color="#FFFFFF" translation="[10, 170]" />
+                </Group>
+                <Group id="hl1" translation="[350, 0]">
+                    <Rectangle width="330" height="200" color="#1A1A1A" />
+                    <Poster id="hlPoster1" width="330" height="200" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="hlFocus1" width="330" height="4" color="#CC0000" translation="[0, 196]" visible="false" />
+                    <Label text="Game Recap" font="font:SmallBoldSystemFont" color="#FFFFFF" translation="[10, 170]" />
+                </Group>
+                <Group id="hl2" translation="[700, 0]">
+                    <Rectangle width="330" height="200" color="#1A1A1A" />
+                    <Poster id="hlPoster2" width="330" height="200" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="hlFocus2" width="330" height="4" color="#CC0000" translation="[0, 196]" visible="false" />
+                    <Label text="Analysis" font="font:SmallBoldSystemFont" color="#FFFFFF" translation="[10, 170]" />
+                </Group>
+                <Group id="hl3" translation="[1050, 0]">
+                    <Rectangle width="330" height="200" color="#1A1A1A" />
+                    <Poster id="hlPoster3" width="330" height="200" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="hlFocus3" width="330" height="4" color="#CC0000" translation="[0, 196]" visible="false" />
+                    <Label text="Interviews" font="font:SmallBoldSystemFont" color="#FFFFFF" translation="[10, 170]" />
+                </Group>
+            </Group>
+        </Group>
+    </children>
+</component>

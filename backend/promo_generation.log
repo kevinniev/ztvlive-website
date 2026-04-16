@@ -1,0 +1,43 @@
+============================================================
+ZTVLIVE PROMO VIDEO GENERATOR
+============================================================
+
+Initializing Sora 2 video generation...
+This may take 2-5 minutes for high-quality video generation.
+
+Video generation initiated with ID: video_69afb1ca95cc81939538a40ca97b9e780489357e2a80494d
+Waiting for video generation to complete (ID: video_69afb1ca95cc81939538a40ca97b9e780489357e2a80494d)...
+Still processing... (0s elapsed, status: in_progress, progress: 0%)
+Still processing... (10s elapsed, status: queued, progress: 0%)
+Still processing... (23s elapsed, status: queued, progress: 0%)
+Still processing... (38s elapsed, status: in_progress, progress: 10%)
+Still processing... (55s elapsed, status: in_progress, progress: 51%)
+Still processing... (76s elapsed, status: in_progress, progress: 84%)
+Still processing... (103s elapsed, status: in_progress, progress: 99%)
+Video generation completed!
+No URL in response, constructed download URL: https://integrations.emergentagent.com/llm/openai/v1/videos/video_69afb1ca95cc81939538a40ca97b9e780489357e2a80494d/content
+Video ready at: https://integrations.emergentagent.com/llm/openai/v1/videos/video_69afb1ca95cc81939538a40ca97b9e780489357e2a80494d/content
+Downloading video from: https://integrations.emergentagent.com/llm/openai/v1/videos/video_69afb1ca95cc81939538a40ca97b9e780489357e2a80494d/content
+Final download URL: https://integrations.emergentagent.com/llm/openai/v1/videos/video_69afb1ca95cc81939538a40ca97b9e780489357e2a80494d/content
+Initial response status: 200
+Content-Type: video/mp4
+Content-Length: 6111302
+Downloaded 6111302 bytes
+Video saved to: /app/backend/ztvlive_promo.mp4
+
+============================================================
+SUCCESS! PROMO VIDEO GENERATED!
+============================================================
+Video saved to: /app/backend/ztvlive_promo.mp4
+File size: 5.83 MB
+
+✅ Video ready at: /app/backend/ztvlive_promo.mp4
+0b06acea798f90c786f29d2241b42/content
+Final download URL: https://integrations.emergentagent.com/llm/openai/v1/videos/video_69afb09aea148190b4f0b06acea798f90c786f29d2241b42/content
+Initial response status: 400
+Error: Final status code: 400
+Response text: {"error":{"message":"Budget has been exceeded! Current cost: 2.1139155, Max budget: 2.001","type":"budget_exceeded","param":null,"code":"400"}}
+
+❌ Failed to generate video
+
+❌ Video generation failed

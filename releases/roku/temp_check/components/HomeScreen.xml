@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- HomeScreen.xml - Premium Music/Home Layout -->
+<component name="HomeScreen" extends="Group">
+    <interface>
+        <field id="category" type="string" value="music" />
+        <field id="contentLoaded" type="boolean" value="false" alwaysNotify="true" />
+        <field id="goToLive" type="boolean" value="false" alwaysNotify="true" />
+        <function name="handleKeyEvent" />
+    </interface>
+    
+    <script type="text/brightscript" uri="pkg:/components/HomeScreen.brs" />
+    
+    <children>
+        <!-- Content area: 1700 x 1010 -->
+        
+        <!-- Section Header -->
+        <Label text="NOW PLAYING" font="font:SmallBoldSystemFont" color="#E50914" translation="[40, 20]" />
+        
+        <!-- Main Content Row -->
+        <Group id="mainRow" translation="[40, 55]">
+            
+            <!-- HERO VIDEO (Large) -->
+            <Group id="heroGroup">
+                <Rectangle width="900" height="510" color="#141414" />
+                <Video id="heroVideo" width="900" height="510" />
+                
+                <!-- LIVE Badge -->
+                <Group translation="[20, 20]">
+                    <Rectangle width="65" height="28" color="#E50914" />
+                    <Label text="LIVE" font="font:SmallBoldSystemFont" color="#FFFFFF"
+                           width="65" height="28" horizAlign="center" vertAlign="center" />
+                </Group>
+                
+                <!-- Gradient overlay for text -->
+                <Rectangle width="900" height="150" color="#000000" opacity="0.7" translation="[0, 360]" />
+                
+                <!-- WATCH NOW Button -->
+                <Group id="watchNowBtn" translation="[30, 420]">
+                    <Rectangle id="watchNowBg" width="180" height="50" color="#E50914" />
+                    <Label text="WATCH NOW" font="font:SmallBoldSystemFont" color="#FFFFFF"
+                           width="180" height="50" horizAlign="center" vertAlign="center" />
+                </Group>
+                
+                <!-- Focus Border -->
+                <Rectangle id="heroFocus" width="900" height="5" color="#E50914" translation="[0, 505]" visible="true" />
+            </Group>
+            
+            <!-- Right Side Thumbnails (2x2) -->
+            <Group id="thumbGrid" translation="[930, 0]">
+                <Group id="thumb0" translation="[0, 0]">
+                    <Rectangle width="365" height="245" color="#141414" />
+                    <Poster id="poster0" width="365" height="245" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="focus0" width="365" height="4" color="#E50914" translation="[0, 241]" visible="false" />
+                </Group>
+                <Group id="thumb1" translation="[385, 0]">
+                    <Rectangle width="365" height="245" color="#141414" />
+                    <Poster id="poster1" width="365" height="245" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="focus1" width="365" height="4" color="#E50914" translation="[0, 241]" visible="false" />
+                </Group>
+                <Group id="thumb2" translation="[0, 265]">
+                    <Rectangle width="365" height="245" color="#141414" />
+                    <Poster id="poster2" width="365" height="245" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="focus2" width="365" height="4" color="#E50914" translation="[0, 241]" visible="false" />
+                </Group>
+                <Group id="thumb3" translation="[385, 265]">
+                    <Rectangle width="365" height="245" color="#141414" />
+                    <Poster id="poster3" width="365" height="245" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="focus3" width="365" height="4" color="#E50914" translation="[0, 241]" visible="false" />
+                </Group>
+            </Group>
+        </Group>
+        
+        <!-- TRENDING Section -->
+        <Group id="trendingSection" translation="[40, 590]">
+            <Label text="TRENDING" font="font:SmallBoldSystemFont" color="#888888" />
+            
+            <Group id="trendingRow" translation="[0, 40]">
+                <Group id="trend0">
+                    <Rectangle width="250" height="350" color="#141414" />
+                    <Poster id="trendPoster0" width="250" height="350" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="trendFocus0" width="250" height="4" color="#E50914" translation="[0, 346]" visible="false" />
+                </Group>
+                <Group id="trend1" translation="[268, 0]">
+                    <Rectangle width="250" height="350" color="#141414" />
+                    <Poster id="trendPoster1" width="250" height="350" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="trendFocus1" width="250" height="4" color="#E50914" translation="[0, 346]" visible="false" />
+                </Group>
+                <Group id="trend2" translation="[536, 0]">
+                    <Rectangle width="250" height="350" color="#141414" />
+                    <Poster id="trendPoster2" width="250" height="350" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="trendFocus2" width="250" height="4" color="#E50914" translation="[0, 346]" visible="false" />
+                </Group>
+                <Group id="trend3" translation="[804, 0]">
+                    <Rectangle width="250" height="350" color="#141414" />
+                    <Poster id="trendPoster3" width="250" height="350" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="trendFocus3" width="250" height="4" color="#E50914" translation="[0, 346]" visible="false" />
+                </Group>
+                <Group id="trend4" translation="[1072, 0]">
+                    <Rectangle width="250" height="350" color="#141414" />
+                    <Poster id="trendPoster4" width="250" height="350" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="trendFocus4" width="250" height="4" color="#E50914" translation="[0, 346]" visible="false" />
+                </Group>
+                <Group id="trend5" translation="[1340, 0]">
+                    <Rectangle width="250" height="350" color="#141414" />
+                    <Poster id="trendPoster5" width="250" height="350" loadDisplayMode="scaleToZoom" />
+                    <Rectangle id="trendFocus5" width="250" height="4" color="#E50914" translation="[0, 346]" visible="false" />
+                </Group>
+            </Group>
+        </Group>
+    </children>
+</component>

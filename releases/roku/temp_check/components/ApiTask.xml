@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- ApiTask.xml - Background task for API calls (v2.3) -->
+<component name="ApiTask" extends="Task">
+    <interface>
+        <field id="endpoint" type="string" />
+        <field id="method" type="string" value="GET" />
+        <field id="body" type="string" value="" />
+        <field id="baseUrl" type="string" value="https://www.ztvlivestream.com/api" />
+        <field id="response" type="assocarray" />
+        <field id="error" type="string" value="" />
+    </interface>
+    <script type="text/brightscript" uri="pkg:/components/ApiTask.brs" />
+</component>

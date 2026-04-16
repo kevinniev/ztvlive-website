@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="ZTVScene" extends="Scene" initialFocus="rowList">
+    <interface>
+        <field id="deepLink" type="assocarray" onChange="onDeepLink" />
+    </interface>
+    
+    <script type="text/brightscript" uri="ZTVScene.brs" />
+    
+    <children>
+        <!-- Background - Modern dark gradient -->
+        <Rectangle id="bgBase" width="1920" height="1080" color="#09090b" />
+        
+        <!-- Subtle top accent glow -->
+        <Rectangle id="topGlow" width="1920" height="200" color="#18181b" opacity="0.8" />
+        
+        <!-- ===== MODERN HEADER ===== -->
+        <Group id="headerGroup" translation="[0, 0]">
+            <Rectangle id="headerBg" width="1920" height="80" color="#09090b" opacity="0.95" />
+            
+            <!-- Logo - Modern red square -->
+            <Group id="logoGroup" translation="[60, 15]">
+                <Rectangle id="logoBg" width="50" height="50" color="#dc2626" />
+                <Label id="logoZ" text="Z" width="50" height="50" 
+                       horizAlign="center" vertAlign="center"
+                       font="font:LargeBoldSystemFont" color="#FFFFFF" />
+            </Group>
+            
+            <!-- Brand -->
+            <Label id="brandName" text="ZTVLIVE" translation="[125, 20]"
+                   font="font:LargeBoldSystemFont" color="#FFFFFF" />
+            <Label id="tagline" text="24/7 LIVE" translation="[125, 50]"
+                   font="font:SmallSystemFont" color="#dc2626" />
+            
+            <!-- Live Indicator - Minimal pill -->
+            <Group id="liveBadgeGroup" translation="[1750, 22]">
+                <Rectangle id="livePill" width="100" height="36" color="#dc2626" />
+                <Rectangle id="liveDot" width="8" height="8" translation="[15, 14]" color="#FFFFFF" />
+                <Label id="liveText" text="LIVE" width="70" height="36" translation="[28, 0]"
+                       vertAlign="center" font="font:SmallBoldSystemFont" color="#FFFFFF" />
+            </Group>
+            
+            <!-- Nav Items - Clean and minimal -->
+            <Label id="navHome" text="HOME" translation="[800, 28]"
+                   font="font:SmallBoldSystemFont" color="#FFFFFF" />
+            <Label id="navSchedule" text="SCHEDULE" translation="[920, 28]"
+                   font="font:SmallSystemFont" color="#71717a" />
+            <Label id="navCreators" text="CREATORS" translation="[1070, 28]"
+                   font="font:SmallSystemFont" color="#71717a" />
+        </Group>
+        
+        <!-- Thin red accent line under header -->
+        <Rectangle id="headerAccent" width="1920" height="2" translation="[0, 80]" color="#dc2626" opacity="0.6" />
+        
+        <!-- ===== HERO SECTION - MODERN CARD ===== -->
+        <Group id="heroSection" translation="[60, 100]">
+            <!-- Hero Card with subtle border -->
+            <Rectangle id="heroCard" width="1800" height="360" color="#18181b" />
+            <Rectangle id="heroCardBorder" width="1800" height="360" color="#27272a" opacity="0.5" />
+            
+            <!-- Left - Content Info -->
+            <Group id="heroContent" translation="[50, 40]">
+                <!-- Now Playing Badge - Modern pill -->
+                <Group id="nowPlayingBadge">
+                    <Rectangle width="130" height="32" color="#dc2626" />
+                    <Rectangle id="badgeDot" width="6" height="6" translation="[12, 13]" color="#FFFFFF" />
+                    <Label text="LIVE NOW" width="100" height="32" translation="[24, 0]"
+                           vertAlign="center" font="font:SmallBoldSystemFont" color="#FFFFFF" />
+                </Group>
+                
+                <!-- Title - Clean typography -->
+                <Label id="heroTitle" text="24/7 Interactive Game Show" translation="[0, 50]"
+                       font="font:LargeBoldSystemFont" color="#FFFFFF" />
+                
+                <!-- Subtitle -->
+                <Label id="heroSubtitle" text="Play & Win Real Prizes Every 10 Minutes" 
+                       translation="[0, 100]" font="font:MediumSystemFont" color="#a1a1aa" />
+                
+                <!-- Stats Row -->
+                <Group id="statsRow" translation="[0, 150]">
+                    <Rectangle width="100" height="50" color="#27272a" />
+                    <Label text="2.4K" width="100" height="30" translation="[0, 5]"
+                           horizAlign="center" font="font:SmallBoldSystemFont" color="#FFFFFF" />
+                    <Label text="Viewers" width="100" height="20" translation="[0, 30]"
+                           horizAlign="center" font="font:SmallSystemFont" color="#71717a" />
+                    
+                    <Rectangle width="100" height="50" translation="[115, 0]" color="#27272a" />
+                    <Label text="$500+" width="100" height="30" translation="[115, 5]"
+                           horizAlign="center" font="font:SmallBoldSystemFont" color="#22c55e" />
+                    <Label text="Won Today" width="100" height="20" translation="[115, 30]"
+                           horizAlign="center" font="font:SmallSystemFont" color="#71717a" />
+                    
+                    <Rectangle width="100" height="50" translation="[230, 0]" color="#27272a" />
+                    <Label text="24/7" width="100" height="30" translation="[230, 5]"
+                           horizAlign="center" font="font:SmallBoldSystemFont" color="#dc2626" />
+                    <Label text="Non-Stop" width="100" height="20" translation="[230, 30]"
+                           horizAlign="center" font="font:SmallSystemFont" color="#71717a" />
+                </Group>
+                
+                <!-- Watch Button - Modern style -->
+                <Group id="watchBtnGroup" translation="[0, 230]">
+                    <Rectangle id="playBtnBg" width="200" height="52" color="#dc2626" />
+                    <Label id="watchBtnIcon" text="▶" width="30" height="52" translation="[20, 0]"
+                           vertAlign="center" font="font:MediumBoldSystemFont" color="#FFFFFF" />
+                    <Label id="watchBtnText" text="Watch Live" width="140" height="52" translation="[50, 0]"
+                           vertAlign="center" font="font:MediumBoldSystemFont" color="#FFFFFF" />
+                </Group>
+                
+                <!-- Promo Mode Badge (hidden by default) -->
+                <Rectangle id="promoModeBadge" width="140" height="30" translation="[0, 290]" 
+                           color="#f59e0b" visible="false" />
+            </Group>
+            
+            <!-- Right - Video Preview -->
+            <Group id="heroPreview" translation="[1080, 30]">
+                <Rectangle id="previewBorder" width="670" height="300" color="#27272a" />
+                <Poster id="heroPoster" width="666" height="296" translation="[2, 2]"
+                        uri="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800" 
+                        loadingBitmapOpacity="0.3" />
+                
+                <!-- Play overlay -->
+                <Rectangle width="80" height="80" translation="[293, 108]" color="#dc2626" opacity="0.9" />
+                <Label text="▶" width="80" height="80" translation="[293, 108]"
+                       horizAlign="center" vertAlign="center"
+                       font="font:LargeBoldSystemFont" color="#FFFFFF" />
+            </Group>
+        </Group>
+        
+        <!-- ===== CONTENT ROWS ===== -->
+        <RowList id="rowList"
+                 translation="[0, 490]"
+                 itemSize="[1920, 240]"
+                 numRows="5"
+                 rowItemSize="[[300, 170]]"
+                 rowItemSpacing="[[20, 0]]"
+                 itemSpacing="[0, 15]"
+                 showRowLabel="true"
+                 rowLabelOffset="[[60, 8]]"
+                 rowLabelColor="#FFFFFF"
+                 rowLabelFont="font:MediumBoldSystemFont"
+                 focusXOffset="[60]"
+                 drawFocusFeedback="true"
+                 drawFocusFeedbackOnTop="true"
+                 focusBitmapBlendColor="#dc2626"
+                 vertFocusAnimationStyle="fixedFocusWrap" />
+        
+        <!-- ===== FULLSCREEN VIDEO PLAYER ===== -->
+        <Group id="playerGroup" visible="false">
+            <Video id="videoPlayer" width="1920" height="1080" translation="[0, 0]" />
+            
+            <!-- Minimal bottom bar -->
+            <Rectangle id="playerBar" width="1920" height="60" translation="[0, 1020]" 
+                       color="#000000" opacity="0.8" />
+            
+            <!-- ZTVLIVE branding -->
+            <Group id="playerBranding" translation="[60, 1030]">
+                <Rectangle width="40" height="40" color="#dc2626" />
+                <Label text="Z" width="40" height="40" horizAlign="center" vertAlign="center"
+                       font="font:MediumBoldSystemFont" color="#FFFFFF" />
+                <Label id="playerTitle" text="ZTVLIVE" translation="[50, 8]"
+                       font="font:MediumBoldSystemFont" color="#FFFFFF" />
+            </Group>
+            
+            <!-- Live indicator -->
+            <Group id="playerLive" translation="[1780, 1030]">
+                <Rectangle width="80" height="40" color="#dc2626" />
+                <Rectangle width="6" height="6" translation="[12, 17]" color="#FFFFFF" />
+                <Label text="LIVE" width="55" height="40" translation="[22, 0]"
+                       vertAlign="center" font="font:SmallBoldSystemFont" color="#FFFFFF" />
+            </Group>
+        </Group>
+        
+        <!-- ===== BE RIGHT BACK SCREEN ===== -->
+        <Group id="holdingScreen" visible="false">
+            <Rectangle id="holdingBg" width="1920" height="1080" color="#09090b" />
+            
+            <!-- Center content -->
+            <Group id="holdingContent" translation="[760, 340]">
+                <!-- Logo -->
+                <Rectangle width="100" height="100" translation="[150, 0]" color="#dc2626" />
+                <Label text="Z" width="100" height="100" translation="[150, 0]"
+                       horizAlign="center" vertAlign="center"
+                       font="font:LargeBoldSystemFont" color="#FFFFFF" />
+                
+                <!-- Status text -->
+                <Label id="holdingStatus" text="BE RIGHT BACK" translation="[0, 130]" width="400"
+                       horizAlign="center" font="font:LargeBoldSystemFont" color="#FFFFFF" />
+                <Label id="holdingMainText" text="We'll return shortly" translation="[0, 180]" width="400"
+                       horizAlign="center" font="font:MediumSystemFont" color="#71717a" />
+                <Label id="holdingSubText" text="" translation="[0, 210]" width="400"
+                       horizAlign="center" font="font:SmallSystemFont" color="#71717a" />
+                
+                <!-- Animated dots -->
+                <Rectangle width="12" height="12" translation="[170, 250]" color="#dc2626" />
+                <Rectangle width="12" height="12" translation="[194, 250]" color="#dc2626" opacity="0.6" />
+                <Rectangle width="12" height="12" translation="[218, 250]" color="#dc2626" opacity="0.3" />
+            </Group>
+        </Group>
+        
+        <!-- ===== STARTING SOON SCREEN ===== -->
+        <Group id="startingSoonScreen" visible="false">
+            <Rectangle id="soonBg" width="1920" height="1080" color="#09090b" />
+            
+            <Group id="soonContent" translation="[660, 300]">
+                <!-- Icon -->
+                <Rectangle width="120" height="120" translation="[240, 0]" color="#27272a" />
+                <Label text="⏱" width="120" height="120" translation="[240, 0]"
+                       horizAlign="center" vertAlign="center"
+                       font="font:LargeBoldSystemFont" color="#dc2626" />
+                
+                <!-- Text -->
+                <Label text="STARTING SOON" translation="[0, 150]" width="600"
+                       horizAlign="center" font="font:LargeBoldSystemFont" color="#FFFFFF" />
+                <Label id="soonCreatorText" translation="[0, 200]" width="600"
+                       horizAlign="center" font="font:MediumSystemFont" color="#a1a1aa" />
+                
+                <!-- Progress bar -->
+                <Rectangle width="400" height="6" translation="[100, 260]" color="#27272a" />
+                <Rectangle id="soonProgress" width="200" height="6" translation="[100, 260]" color="#dc2626" />
+            </Group>
+        </Group>
+        
+        <!-- ===== LOADING SCREEN ===== -->
+        <Group id="loadingScreen" visible="false">
+            <Rectangle width="1920" height="1080" color="#09090b" />
+            
+            <Group translation="[860, 440]">
+                <Rectangle width="200" height="200" color="#18181b" />
+                <Rectangle width="80" height="80" translation="[60, 40]" color="#dc2626" />
+                <Label text="Z" width="80" height="80" translation="[60, 40]"
+                       horizAlign="center" vertAlign="center"
+                       font="font:LargeBoldSystemFont" color="#FFFFFF" />
+                <Label text="Loading..." translation="[0, 140]" width="200"
+                       horizAlign="center" font="font:SmallSystemFont" color="#71717a" />
+            </Group>
+        </Group>
+    </children>
+</component>

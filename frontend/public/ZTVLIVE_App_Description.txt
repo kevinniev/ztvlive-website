@@ -1,0 +1,162 @@
+================================================================================
+                    ZTVLIVE - APP DESCRIPTION FOR CERTIFICATION
+                         Samsung TV App Verification Document
+================================================================================
+
+APP INFORMATION
+---------------
+App Name:           ZTVLIVE
+Version:            1.0.0
+Platform:           Samsung Tizen Smart TV
+Category:           Entertainment / Video Streaming
+Content Rating:     All Ages (TV-G equivalent)
+Developer:          ZTVLIVE
+Contact Email:      support@ztvlivestream.com
+Website:            https://www.ztvlivestream.com
+
+
+APP DESCRIPTION
+---------------
+ZTVLIVE is a free 24/7 live streaming TV platform featuring creator-driven 
+content including music, podcasts, gaming, and entertainment. The app streams 
+continuous live content with no user interaction required after launch.
+
+This is a FREE app with NO in-app purchases and NO subscription required.
+
+
+MAIN FEATURES
+-------------
+1. 24/7 Continuous Live Streaming
+   - Video playback begins automatically when app launches
+   - No user action required to start watching
+
+2. Creator Content
+   - Music performances and music videos
+   - Podcasts and talk shows
+   - Gaming streams
+   - Entertainment and variety content
+
+3. Live On-Screen Comments
+   - Real-time viewer comments displayed on screen
+   - Community engagement features
+
+4. Simple TV-Optimized Interface
+   - Designed specifically for TV remote navigation
+   - Clean, distraction-free viewing experience
+
+
+HOW TO TEST THE APP
+-------------------
+Step 1: Launch the app
+        - Video will begin playing automatically within 3-5 seconds
+        - No login or setup required
+
+Step 2: Basic Navigation
+        - Press UP arrow to access the top menu bar
+        - Press DOWN arrow to view on-screen live comments
+        - Press LEFT/RIGHT to browse menu options
+
+Step 3: Video Controls
+        - Press PLAY/PAUSE button to control playback
+        - Press OK/ENTER to select menu items
+
+Step 4: Exit App
+        - Press BACK button to return to previous screen
+        - Press BACK again from main screen to exit app
+
+
+REMOTE CONTROL MAPPING
+----------------------
+Button              Action
+------              ------
+OK / Enter          Select menu item, confirm action
+Back                Return to previous screen / Exit app
+Play                Play video
+Pause               Pause video
+Play/Pause          Toggle play/pause
+Up                  Navigate up / Show top menu
+Down                Navigate down / Show comments
+Left                Navigate left
+Right               Navigate right
+
+
+TEST ACCOUNTS
+-------------
+Login is NOT required to use this app. All content is freely accessible 
+without authentication.
+
+However, if login testing is needed, the following test accounts are available:
+
+Account 1:
+  Email:    samsungtest1@ztvlivestream.com
+  Password: SamsungTest2026
+
+Account 2:
+  Email:    samsungtest2@ztvlivestream.com
+  Password: SamsungTest2026
+
+Account 3:
+  Email:    samsungtest3@ztvlivestream.com
+  Password: SamsungTest2026
+
+All accounts have identical access levels. There are no premium tiers or 
+restricted content - all content is free for all users.
+
+
+NETWORK REQUIREMENTS
+--------------------
+- Active internet connection required
+- Recommended bandwidth: 5+ Mbps for smooth HD streaming
+- Supported protocols: HTTPS, WebSocket
+
+
+CONTENT INFORMATION
+-------------------
+- All content is user-generated and creator-submitted
+- Content is moderated before broadcast
+- No adult content, violence, or inappropriate material
+- Suitable for all ages and family viewing
+
+
+GEO IP RESTRICTIONS
+-------------------
+None - ZTVLIVE is available globally with no regional content restrictions.
+
+
+IN-APP PURCHASES / VOUCHERS
+---------------------------
+None - This is a completely free app with no paid content or subscriptions.
+
+
+ACCESSIBILITY FEATURES
+----------------------
+- High contrast UI elements
+- Clear, readable text sizing
+- Simple navigation structure
+- Captions handled via App UI
+
+
+TECHNICAL SPECIFICATIONS
+------------------------
+- Minimum Tizen Version: 5.0
+- Resolution Support: 1920x1080 (Full HD)
+- Audio: Stereo
+- Network: WiFi / Ethernet
+
+
+KNOWN LIMITATIONS
+-----------------
+- Requires stable internet connection for streaming
+- Video quality may adjust based on network conditions
+
+
+SUPPORT CONTACT
+---------------
+For any questions or issues during certification:
+Email: support@ztvlivestream.com
+Website: https://www.ztvlivestream.com
+
+
+================================================================================
+                              END OF DOCUMENT
+================================================================================

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- NewsScreen.xml - CNN-style News layout -->
+<component name="NewsScreen" extends="Group">
+    <interface>
+        <field id="contentLoaded" type="boolean" value="false" alwaysNotify="true" />
+        <field id="goToLive" type="boolean" value="false" alwaysNotify="true" />
+        <function name="handleKeyEvent" />
+    </interface>
+    
+    <script type="text/brightscript" uri="pkg:/components/NewsScreen.brs" />
+    
+    <children>
+        <!-- CNN-style Breaking News Banner -->
+        <Group translation="[0, 0]">
+            <Rectangle width="1720" height="50" color="#CC0000" />
+            <Rectangle width="150" height="50" color="#990000">
+                <Label text="BREAKING" font="font:SmallBoldSystemFont" color="#FFFFFF"
+                       width="150" height="50" horizAlign="center" vertAlign="center" />
+            </Rectangle>
+            <Label id="tickerText" text="LIVE: Major developments in global markets • Tech stocks surge • Breaking: Policy announcement expected • Weather alert issued" 
+                   font="font:SmallSystemFont" color="#FFFFFF" translation="[170, 15]" />
+        </Group>
+        
+        <!-- Main Layout -->
+        <Group translation="[0, 70]">
+            <!-- Featured Story (Large video - left) -->
+            <Group id="featuredStory" translation="[20, 0]">
+                <Rectangle width="850" height="480" color="#1A1A1A" />
+                <Video id="newsVideo" width="850" height="480" />
+                
+                <!-- LIVE NOW badge -->
+                <Rectangle width="100" height="30" color="#CC0000" translation="[15, 15]">
+                    <Label text="LIVE NOW" font="font:SmallBoldSystemFont" color="#FFFFFF"
+                           width="100" height="30" horizAlign="center" vertAlign="center" />
+                </Rectangle>
+                
+                <!-- Story headline overlay -->
+                <Group translation="[0, 400]">
+                    <Rectangle width="850" height="80" color="#00000090" />
+                    <Label id="featuredHeadline" text="Breaking News Coverage" font="font:MediumBoldSystemFont" 
+                           color="#FFFFFF" translation="[20, 15]" width="810" />
+                    <Label id="featuredSource" text="ZTVLIVE News • Live" font="font:SmallSystemFont" 
+                           color="#CC0000" translation="[20, 50]" />
+                </Group>
+                
+                <Rectangle id="featuredFocus" width="850" height="6" color="#CC0000" translation="[0, 474]" visible="true" />
+            </Group>
+            
+            <!-- Right Side - Story Cards -->
+            <Group translation="[890, 0]">
+                <Label text="TOP STORIES" font="font:MediumBoldSystemFont" color="#CC0000" />
+                
+                <Group id="storyList" translation="[0, 45]">
+                    <Group id="story0">
+                        <Rectangle id="storyBg0" width="810" height="135" color="#1A1A1A" />
+                        <Poster id="storyPoster0" width="200" height="125" translation="[5, 5]" loadDisplayMode="scaleToZoom" />
+                        <Label id="storyTitle0" text="Global Markets Update: Stocks Rally" font="font:SmallBoldSystemFont" 
+                               color="#FFFFFF" width="580" translation="[220, 15]" />
+                        <Label id="storyTime0" text="2 hours ago • Markets" font="font:SmallSystemFont" 
+                               color="#888888" translation="[220, 50]" />
+                        <Label id="storyDesc0" text="Major indices reach new highs amid positive earnings reports" 
+                               font="font:SmallSystemFont" color="#666666" width="580" translation="[220, 80]" />
+                        <Rectangle id="storyFocus0" width="810" height="4" color="#CC0000" translation="[0, 131]" visible="false" />
+                    </Group>
+                    
+                    <Group id="story1" translation="[0, 145]">
+                        <Rectangle id="storyBg1" width="810" height="135" color="#1A1A1A" />
+                        <Poster id="storyPoster1" width="200" height="125" translation="[5, 5]" loadDisplayMode="scaleToZoom" />
+                        <Label id="storyTitle1" text="Tech Industry: AI Revolution Continues" font="font:SmallBoldSystemFont" 
+                               color="#FFFFFF" width="580" translation="[220, 15]" />
+                        <Label id="storyTime1" text="3 hours ago • Technology" font="font:SmallSystemFont" 
+                               color="#888888" translation="[220, 50]" />
+                        <Label id="storyDesc1" text="New AI developments transform industries worldwide" 
+                               font="font:SmallSystemFont" color="#666666" width="580" translation="[220, 80]" />
+                        <Rectangle id="storyFocus1" width="810" height="4" color="#CC0000" translation="[0, 131]" visible="false" />
+                    </Group>
+                    
+                    <Group id="story2" translation="[0, 290]">
+                        <Rectangle id="storyBg2" width="810" height="135" color="#1A1A1A" />
+                        <Poster id="storyPoster2" width="200" height="125" translation="[5, 5]" loadDisplayMode="scaleToZoom" />
+                        <Label id="storyTitle2" text="World Leaders Summit: Key Announcements" font="font:SmallBoldSystemFont" 
+                               color="#FFFFFF" width="580" translation="[220, 15]" />
+                        <Label id="storyTime2" text="4 hours ago • Politics" font="font:SmallSystemFont" 
+                               color="#888888" translation="[220, 50]" />
+                        <Label id="storyDesc2" text="Historic agreements reached at international summit" 
+                               font="font:SmallSystemFont" color="#666666" width="580" translation="[220, 80]" />
+                        <Rectangle id="storyFocus2" width="810" height="4" color="#CC0000" translation="[0, 131]" visible="false" />
+                    </Group>
+                </Group>
+            </Group>
+        </Group>
+        
+        <!-- Bottom Categories Bar -->
+        <Group translation="[20, 580]">
+            <Label text="CATEGORIES" font="font:SmallBoldSystemFont" color="#888888" />
+            
+            <Group id="categoriesRow" translation="[0, 35]">
+                <Group id="cat0">
+                    <Rectangle id="catBg0" width="200" height="50" color="#CC0000" />
+                    <Label text="WORLD" font="font:SmallBoldSystemFont" color="#FFFFFF"
+                           width="200" height="50" horizAlign="center" vertAlign="center" />
+                    <Rectangle id="catFocus0" width="200" height="4" color="#FFFFFF" translation="[0, 46]" visible="false" />
+                </Group>
+                <Group id="cat1" translation="[220, 0]">
+                    <Rectangle id="catBg1" width="200" height="50" color="#333333" />
+                    <Label text="POLITICS" font="font:SmallBoldSystemFont" color="#FFFFFF"
+                           width="200" height="50" horizAlign="center" vertAlign="center" />
+                    <Rectangle id="catFocus1" width="200" height="4" color="#CC0000" translation="[0, 46]" visible="false" />
+                </Group>
+                <Group id="cat2" translation="[440, 0]">
+                    <Rectangle id="catBg2" width="200" height="50" color="#333333" />
+                    <Label text="BUSINESS" font="font:SmallBoldSystemFont" color="#FFFFFF"
+                           width="200" height="50" horizAlign="center" vertAlign="center" />
+                    <Rectangle id="catFocus2" width="200" height="4" color="#CC0000" translation="[0, 46]" visible="false" />
+                </Group>
+                <Group id="cat3" translation="[660, 0]">
+                    <Rectangle id="catBg3" width="200" height="50" color="#333333" />
+                    <Label text="TECH" font="font:SmallBoldSystemFont" color="#FFFFFF"
+                           width="200" height="50" horizAlign="center" vertAlign="center" />
+                    <Rectangle id="catFocus3" width="200" height="4" color="#CC0000" translation="[0, 46]" visible="false" />
+                </Group>
+                <Group id="cat4" translation="[880, 0]">
+                    <Rectangle id="catBg4" width="200" height="50" color="#333333" />
+                    <Label text="HEALTH" font="font:SmallBoldSystemFont" color="#FFFFFF"
+                           width="200" height="50" horizAlign="center" vertAlign="center" />
+                    <Rectangle id="catFocus4" width="200" height="4" color="#CC0000" translation="[0, 46]" visible="false" />
+                </Group>
+                <Group id="cat5" translation="[1100, 0]">
+                    <Rectangle id="catBg5" width="200" height="50" color="#333333" />
+                    <Label text="SPORTS" font="font:SmallBoldSystemFont" color="#FFFFFF"
+                           width="200" height="50" horizAlign="center" vertAlign="center" />
+                    <Rectangle id="catFocus5" width="200" height="4" color="#CC0000" translation="[0, 46]" visible="false" />
+                </Group>
+            </Group>
+        </Group>
+        
+        <!-- More Stories Row -->
+        <Group translation="[20, 690]">
+            <Label text="MORE STORIES" font="font:SmallBoldSystemFont" color="#888888" />
+            
+            <Group id="moreRow" translation="[0, 35]">
+                <Group id="more0">
+                    <Rectangle width="330" height="200" color="#1A1A1A" />
+                    <Poster id="morePoster0" width="330" height="140" loadDisplayMode="scaleToZoom" />
+                    <Label id="moreTitle0" text="Entertainment News" font="font:SmallBoldSystemFont" 
+                           color="#FFFFFF" translation="[10, 150]" />
+                    <Rectangle id="moreFocus0" width="330" height="4" color="#CC0000" translation="[0, 196]" visible="false" />
+                </Group>
+                <Group id="more1" translation="[350, 0]">
+                    <Rectangle width="330" height="200" color="#1A1A1A" />
+                    <Poster id="morePoster1" width="330" height="140" loadDisplayMode="scaleToZoom" />
+                    <Label id="moreTitle1" text="Science & Discovery" font="font:SmallBoldSystemFont" 
+                           color="#FFFFFF" translation="[10, 150]" />
+                    <Rectangle id="moreFocus1" width="330" height="4" color="#CC0000" translation="[0, 196]" visible="false" />
+                </Group>
+                <Group id="more2" translation="[700, 0]">
+                    <Rectangle width="330" height="200" color="#1A1A1A" />
+                    <Poster id="morePoster2" width="330" height="140" loadDisplayMode="scaleToZoom" />
+                    <Label id="moreTitle2" text="Climate & Environment" font="font:SmallBoldSystemFont" 
+                           color="#FFFFFF" translation="[10, 150]" />
+                    <Rectangle id="moreFocus2" width="330" height="4" color="#CC0000" translation="[0, 196]" visible="false" />
+                </Group>
+                <Group id="more3" translation="[1050, 0]">
+                    <Rectangle width="330" height="200" color="#1A1A1A" />
+                    <Poster id="morePoster3" width="330" height="140" loadDisplayMode="scaleToZoom" />
+                    <Label id="moreTitle3" text="Opinion & Analysis" font="font:SmallBoldSystemFont" 
+                           color="#FFFFFF" translation="[10, 150]" />
+                    <Rectangle id="moreFocus3" width="330" height="4" color="#CC0000" translation="[0, 196]" visible="false" />
+                </Group>
+            </Group>
+        </Group>
+    </children>
+</component>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- SplashScreen.xml - v6.6 Premium Cinematic Intro -->
+<component name="SplashScreen" extends="Group">
+    <interface>
+        <field id="introComplete" type="boolean" value="false" alwaysNotify="true" />
+    </interface>
+    
+    <script type="text/brightscript" uri="pkg:/components/SplashScreen.brs" />
+    
+    <children>
+        <!-- Pure Black Background -->
+        <Rectangle id="bg" width="1920" height="1080" color="#000000" />
+        
+        <!-- Subtle glow effect behind logo (fades in) -->
+        <Poster id="glowEffect" uri="" width="600" height="600" translation="[660, 240]" opacity="0" />
+        
+        <!-- ZTVLIVE Logo - starts small and centered, zooms elegantly -->
+        <Poster id="logoImage" uri="pkg:/images/ztvlive_logo.png" 
+                width="1920" height="1080" translation="[0, 0]" opacity="0" />
+        
+        <!-- THE WORLD IS - flows in from below -->
+        <Label id="textLine1" 
+               text="THE WORLD IS" 
+               font="font:LargeBoldSystemFont" 
+               color="#FFFFFF"
+               width="1920" 
+               horizAlign="center"
+               translation="[0, 800]"
+               opacity="0" />
+        
+        <!-- WATCHING - flows in seamlessly -->
+        <Label id="textLine2" 
+               text="WATCHING" 
+               font="font:LargeBoldSystemFont" 
+               color="#E50914"
+               width="1920" 
+               horizAlign="center"
+               translation="[0, 880]"
+               opacity="0" />
+    </children>
+</component>

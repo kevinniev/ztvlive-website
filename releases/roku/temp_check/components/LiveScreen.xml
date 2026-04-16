@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- LiveScreen.xml - v5.8 Premium Fullscreen with Large Logo -->
+<component name="LiveScreen" extends="Group">
+    <interface>
+        <field id="videoId" type="string" />
+        <field id="currentTitle" type="string" />
+        <field id="videoReady" type="boolean" value="false" alwaysNotify="true" />
+        <function name="handleKeyEvent" />
+    </interface>
+    
+    <script type="text/brightscript" uri="pkg:/components/LiveScreen.brs" />
+    
+    <children>
+        <!-- Full 1920x1080 for fullscreen -->
+        <Rectangle id="bg" width="1920" height="1080" color="#000000" />
+        
+        <!-- Fullscreen Video -->
+        <Video id="videoPlayer" width="1920" height="1080" />
+        
+        <!-- LIVE Badge (top-left) - Larger -->
+        <Group translation="[50, 50]">
+            <Rectangle width="90" height="40" color="#E50914" />
+            <Label text="LIVE" font="font:MediumBoldSystemFont" color="#FFFFFF"
+                   width="90" height="40" horizAlign="center" vertAlign="center" />
+        </Group>
+        
+        <!-- ZTVLIVE Logo (top-right) - Text based for clean look -->
+        <Group id="logoWatermark" translation="[1650, 30]">
+            <Rectangle width="45" height="35" color="#E50914">
+                <Label text="Z" font="font:MediumBoldSystemFont" color="#FFFFFF"
+                       width="45" height="35" horizAlign="center" vertAlign="center" />
+            </Rectangle>
+            <Label text="TVLIVE" font="font:MediumBoldSystemFont" color="#FFFFFF" translation="[50, 5]" opacity="0.9" />
+        </Group>
+        
+        <!-- Controls Overlay -->
+        <Group id="controlsOverlay" translation="[0, 880]" visible="false">
+            <Rectangle width="1920" height="200" color="#000000" opacity="0.9" />
+            
+            <!-- ZTVLIVE Logo in controls bar -->
+            <Poster uri="pkg:/images/ztvlive_logo_header.png" width="140" height="79" translation="[50, 15]" />
+            
+            <!-- Progress Bar -->
+            <Rectangle width="1820" height="6" color="#333333" translation="[50, 85]" />
+            <Rectangle id="progressFill" width="600" height="6" color="#E50914" translation="[50, 85]" />
+            
+            <!-- Now Playing Info -->
+            <Label id="nowPlayingTitle" text="ZTVLIVE - 24/7 Live Entertainment" 
+                   font="font:MediumBoldSystemFont" color="#FFFFFF" translation="[50, 105]" />
+            <Label id="viewerCount" text="Live Now" 
+                   font="font:SmallSystemFont" color="#E50914" translation="[50, 140]" />
+            
+            <!-- Playback Controls -->
+            <Group translation="[1750, 105]">
+                <Rectangle width="60" height="50" color="#333333">
+                    <Label id="playPauseIcon" text="||" font="font:MediumBoldSystemFont" color="#FFFFFF"
+                           width="60" height="50" horizAlign="center" vertAlign="center" />
+                </Rectangle>
+            </Group>
+            
+            <!-- Hint -->
+            <Label text="Press LEFT or BACK to exit fullscreen" font="font:SmallSystemFont" color="#666666" translation="[50, 170]" />
+        </Group>
+        
+        <!-- Error Overlay -->
+        <Group id="errorOverlay" translation="[810, 490]" visible="false">
+            <Rectangle width="300" height="100" color="#1A1A1A" />
+            <Label text="Stream Error" font="font:MediumBoldSystemFont" color="#E50914"
+                   width="300" horizAlign="center" translation="[0, 25]" />
+            <Label text="Press OK to retry" font="font:SmallSystemFont" color="#888888"
+                   width="300" horizAlign="center" translation="[0, 60]" />
+        </Group>
+    </children>
+</component>

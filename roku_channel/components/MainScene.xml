@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- MainScene.xml - v7.1 Clean Logo and Navigation -->
+<component name="MainScene" extends="Scene">
+    <interface>
+        <field id="currentPage" type="string" value="home" alwaysNotify="true" />
+    </interface>
+    
+    <script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+    
+    <children>
+        <!-- Deep Black Background -->
+        <Rectangle id="mainBg" width="1920" height="1080" color="#0A0A0A" />
+        
+        <!-- SPLASH SCREEN -->
+        <SplashScreen id="splashScreen" />
+        
+        <!-- MAIN APP -->
+        <Group id="mainApp" visible="false">
+            
+            <!-- TOP HEADER BAR (Premium) -->
+            <Group id="headerBar" translation="[0, 0]">
+                <Rectangle width="1920" height="80" color="#0A0A0A" />
+                
+                <!-- ZTVLIVE Logo (text-based for clean look) -->
+                <Group translation="[20, 20]">
+                    <Rectangle width="50" height="40" color="#E50914">
+                        <Label text="Z" font="font:MediumBoldSystemFont" color="#FFFFFF"
+                               width="50" height="40" horizAlign="center" vertAlign="center" />
+                    </Rectangle>
+                    <Label text="TVLIVE" font="font:MediumBoldSystemFont" color="#FFFFFF" translation="[55, 8]" />
+                </Group>
+                
+                <!-- LIVE 24/7 Badge next to logo -->
+                <Group translation="[180, 32]">
+                    <Rectangle width="12" height="12" color="#E50914" />
+                    <Label text="LIVE 24/7" font="font:SmallBoldSystemFont" color="#FFFFFF" translation="[18, -4]" />
+                </Group>
+                
+                <!-- Subtle separator line -->
+                <Rectangle width="1920" height="1" color="#222222" translation="[0, 79]" />
+            </Group>
+            
+            <!-- LEFT SIDEBAR (Premium Dark) -->
+            <Group id="sidebar" translation="[0, 80]">
+                <Rectangle id="sidebarBg" width="220" height="1000" color="#0D0D0D" />
+                
+                <!-- Subtle right border -->
+                <Rectangle width="1" height="1000" color="#1A1A1A" translation="[219, 0]" />
+                
+                <!-- Category List -->
+                <Group id="categoryList" translation="[0, 40]">
+                    
+                    <!-- MUSIC -->
+                    <Group id="cat0" translation="[0, 0]">
+                        <Rectangle id="catBg0" width="220" height="60" color="#E50914" />
+                        <Rectangle id="catAccent0" width="4" height="60" color="#E50914" />
+                        <Label id="catText0" text="MUSIC" font="font:MediumBoldSystemFont" 
+                               color="#FFFFFF" translation="[25, 16]" />
+                    </Group>
+                    
+                    <!-- MOVIES -->
+                    <Group id="cat1" translation="[0, 70]">
+                        <Rectangle id="catBg1" width="220" height="60" color="#0D0D0D" />
+                        <Rectangle id="catAccent1" width="4" height="60" color="#0D0D0D" visible="false" />
+                        <Label id="catText1" text="MOVIES" font="font:MediumBoldSystemFont" 
+                               color="#666666" translation="[25, 16]" />
+                    </Group>
+                    
+                    <!-- SPORTS -->
+                    <Group id="cat2" translation="[0, 140]">
+                        <Rectangle id="catBg2" width="220" height="60" color="#0D0D0D" />
+                        <Rectangle id="catAccent2" width="4" height="60" color="#0D0D0D" visible="false" />
+                        <Label id="catText2" text="SPORTS" font="font:MediumBoldSystemFont" 
+                               color="#666666" translation="[25, 16]" />
+                    </Group>
+                    
+                    <!-- NEWS -->
+                    <Group id="cat3" translation="[0, 210]">
+                        <Rectangle id="catBg3" width="220" height="60" color="#0D0D0D" />
+                        <Rectangle id="catAccent3" width="4" height="60" color="#0D0D0D" visible="false" />
+                        <Label id="catText3" text="NEWS" font="font:MediumBoldSystemFont" 
+                               color="#666666" translation="[25, 16]" />
+                    </Group>
+                    
+                    <!-- SCHEDULE -->
+                    <Group id="cat4" translation="[0, 280]">
+                        <Rectangle id="catBg4" width="220" height="60" color="#0D0D0D" />
+                        <Rectangle id="catAccent4" width="4" height="60" color="#0D0D0D" visible="false" />
+                        <Label id="catText4" text="SCHEDULE" font="font:MediumBoldSystemFont" 
+                               color="#666666" translation="[25, 16]" />
+                    </Group>
+                    
+                    <!-- GAME -->
+                    <Group id="cat5" translation="[0, 350]">
+                        <Rectangle id="catBg5" width="220" height="60" color="#0D0D0D" />
+                        <Rectangle id="catAccent5" width="4" height="60" color="#0D0D0D" visible="false" />
+                        <Label id="catText5" text="PLAY & WIN" font="font:MediumBoldSystemFont" 
+                               color="#666666" translation="[25, 16]" />
+                    </Group>
+                </Group>
+                
+                <!-- Bottom branding in sidebar -->
+                <Group translation="[20, 900]">
+                    <Rectangle width="35" height="28" color="#E50914">
+                        <Label text="Z" font="font:SmallBoldSystemFont" color="#FFFFFF"
+                               width="35" height="28" horizAlign="center" vertAlign="center" />
+                    </Rectangle>
+                    <Label text="TVLIVE" font="font:SmallBoldSystemFont" color="#444444" translation="[40, 4]" />
+                    <Label text="The World is Watching" font="font:SmallSystemFont" color="#333333" translation="[0, 35]" />
+                </Group>
+            </Group>
+            
+            <!-- CONTENT AREA -->
+            <Group id="contentArea" translation="[220, 80]" />
+            
+            <!-- Loading Overlay (Premium) -->
+            <Group id="loadingGroup" translation="[960, 500]" visible="false">
+                <Rectangle width="200" height="70" color="#1A1A1A" translation="[-100, -35]" />
+                <Label text="Loading..." font="font:SmallBoldSystemFont" color="#E50914"
+                       width="200" height="70" horizAlign="center" vertAlign="center" translation="[-100, -35]" />
+            </Group>
+        </Group>
+    </children>
+</component>

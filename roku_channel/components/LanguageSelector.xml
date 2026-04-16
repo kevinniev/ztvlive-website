@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- LanguageSelector.xml - Multi-language support (FIXED v2.1) -->
+<component name="LanguageSelector" extends="Group">
+    <interface>
+        <field id="selectedLang" type="string" value="en" alwaysNotify="true" />
+        <field id="selectedLangName" type="string" value="English" />
+    </interface>
+    
+    <children>
+        <LayoutGroup layoutDirection="horiz" itemSpacings="[10]">
+            <Label id="currentLangLabel" text="EN" font="font:SmallBoldSystemFont" color="0xffffffcc" />
+            <Button id="langButton" text="Change" minWidth="80" />
+        </LayoutGroup>
+        
+        <!-- Language dropdown (hidden by default) - Using LayoutGroup instead of ScrollGroup -->
+        <Group id="langDropdown" translation="[0, 40]" visible="false">
+            <Rectangle width="200" height="300" color="0x2a2a4aff" />
+            <LayoutGroup id="langList" layoutDirection="vert" itemSpacings="[5]" 
+                         translation="[10, 10]" />
+        </Group>
+    </children>
+    
+    <script type="text/brightscript" uri="LanguageSelector.brs" />
+</component>
