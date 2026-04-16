@@ -16,7 +16,7 @@ import json
 import os
 from datetime import datetime
 
-# ─── Master Feed Library ────────────────────────────────────────────
+# ─── Master Feed Library ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 KOMPA_FEEDS = [
     {
@@ -210,9 +210,12 @@ CARIBBEAN_FEEDS = [
     },
 ]
 
-# ─── 24-Hour Programming Blocks ────────────────────────────────────
+# ━━━ 24-Hour Programming Blocks ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Each block defines the time window and what content categories to pull from.
+# We use 30-minute slots (48 slots per day) for fine-grained scheduling.
 
 PROGRAM_BLOCKS = {
+    # Late Night (12am - 3am) — Chill Caribbean + Zouk
     "Late Night Vibes": {
         "hours": [0, 1, 2],
         "emoji": "🌙",
@@ -220,6 +223,7 @@ PROGRAM_BLOCKS = {
         "secondary": "KOMPA",
         "description": "Late night Caribbean vibes - Zouk, Reggae & Kompa"
     },
+    # Early Morning (3am - 6am) — News + Space
     "Early Morning News": {
         "hours": [3, 4, 5],
         "emoji": "🌅",
@@ -227,6 +231,7 @@ PROGRAM_BLOCKS = {
         "secondary": None,
         "description": "Global news - NASA, Sky News, Bloomberg"
     },
+    # Morning Kompa (6am - 9am) — Kompa to start the day
     "Morning Kompa": {
         "hours": [6, 7, 8],
         "emoji": "🎵",
@@ -234,6 +239,7 @@ PROGRAM_BLOCKS = {
         "secondary": "CARIBBEAN",
         "description": "Start your day with Haitian Kompa - Klass, T-Vice, Harmonik"
     },
+    # Mid-Morning News (9am - 12pm) — News block
     "Mid-Morning Report": {
         "hours": [9, 10, 11],
         "emoji": "📺",
@@ -241,6 +247,7 @@ PROGRAM_BLOCKS = {
         "secondary": None,
         "description": "Global news coverage - Bloomberg, Sky News AU"
     },
+    # Afternoon Hip-Hop (12pm - 3pm) — Hip-Hop/R&B
     "Afternoon Hip-Hop": {
         "hours": [12, 13, 14],
         "emoji": "🎤",
@@ -248,6 +255,7 @@ PROGRAM_BLOCKS = {
         "secondary": "KOMPA",
         "description": "Hip-Hop & R&B - Drake, Future, Kendrick Lamar"
     },
+    # Afternoon Caribbean (3pm - 5pm) — Caribbean vibes
     "Caribbean Afternoon": {
         "hours": [15, 16],
         "emoji": "🌴",
@@ -255,6 +263,7 @@ PROGRAM_BLOCKS = {
         "secondary": "KOMPA",
         "description": "Caribbean vibes - Zouk, Reggae, Soca"
     },
+    # Evening News (5pm - 7pm) — Prime time news
     "Evening News": {
         "hours": [17, 18],
         "emoji": "📰",
@@ -262,6 +271,7 @@ PROGRAM_BLOCKS = {
         "secondary": None,
         "description": "Evening news roundup - global coverage"
     },
+    # Prime Time Kompa (7pm - 10pm) — The main Kompa show
     "Prime Time Kompa": {
         "hours": [19, 20, 21],
         "emoji": "🔥",
@@ -269,6 +279,7 @@ PROGRAM_BLOCKS = {
         "secondary": "HIPHOP",
         "description": "Prime time - Klass, T-Vice, Kai, Harmonik, Nu-Look"
     },
+    # Night Hip-Hop (10pm - 12am) — Late hip-hop
     "Night Session": {
         "hours": [22, 23],
         "emoji": "🎶",
@@ -289,12 +300,14 @@ CATEGORY_MAP = {
 def generate_clean_schedule():
     """Generate a full 24-hour schedule with 30-minute slots."""
 
+    # Build hour -> block mapping
     hour_to_block = {}
     for block_name, block_info in PROGRAM_BLOCKS.items():
         for h in block_info["hours"]:
             hour_to_block[h] = (block_name, block_info)
 
     schedule = []
+    # Track usage indices per category so we rotate through all feeds
     cat_index = {cat: 0 for cat in CATEGORY_MAP}
 
     for hour in range(24):
@@ -310,6 +323,7 @@ def generate_clean_schedule():
             primary_cat = block_info.get("primary", "NEWS")
             secondary_cat = block_info.get("secondary")
 
+            # Alternate: first half-hour = primary, second = secondary (or primary again)
             if half == 0 or secondary_cat is None:
                 use_cat = primary_cat
             else:
@@ -329,6 +343,7 @@ def generate_clean_schedule():
                 "program_block": block_name,
                 "program_emoji": block_info.get("emoji", "📺"),
                 "program_description": block_info.get("description", ""),
+                # Feed data
                 "id": feed["id"],
                 "title": feed["title"],
                 "video_url": feed["video_url"],
@@ -342,6 +357,7 @@ def generate_clean_schedule():
             }
             schedule.append(slot)
 
+    # ━━━ Build master feed list (deduplicated) ━━━━━━━━━━━━━━━━━━━━━━
     seen_ids = set()
     all_feeds = []
     for cat_feeds in CATEGORY_MAP.values():
@@ -368,6 +384,7 @@ def generate_clean_schedule():
         "schedule": schedule,
     }
 
+    # ━━━ Write output ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     script_dir = os.path.dirname(os.path.abspath(__file__))
     data_dir = os.path.join(script_dir, "..", "data")
     os.makedirs(data_dir, exist_ok=True)
