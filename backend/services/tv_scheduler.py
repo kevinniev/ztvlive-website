@@ -5,11 +5,17 @@ import os
 import threading
 
 # =============================================
-# CLEAN FEED MASTER LIBRARY - HLS STREAMS
-# These are all verified working HLS endpoints
-# No YouTube embedding restrictions (Error 150)
+# SCHEDULE LOADER
+# Loads from backend/data/clean_schedule.json if available,
+# otherwise falls back to built-in CLEAN_FEEDS.
 # =============================================
-CLEAN_FEEDS = [
+
+_SCHEDULE_JSON_PATH = os.path.join(
+    os.path.dirname(__file__), '..', 'data', 'clean_schedule.json'
+)
+
+# Built-in fallback feeds (HLS news/space only)
+_FALLBACK_FEEDS = [
     {
         'id': 'nasa_tv',
         'title': 'NASA TV - Space & Science Live',
@@ -20,7 +26,7 @@ CLEAN_FEEDS = [
         'stream_type': 'hls',
         'thumbnail': 'https://images-assets.nasa.gov/image/iss040e090540/iss040e090540~orig.jpg',
         'description': 'Live feed from NASA Television - ISS, launches, briefings',
-        'duration_seconds': 86400
+        'duration_seconds': 86400,
     },
     {
         'id': 'sky_news_au',
@@ -32,7 +38,7 @@ CLEAN_FEEDS = [
         'stream_type': 'hls',
         'thumbnail': '',
         'description': '24/7 Sky News Australia - breaking news & analysis',
-        'duration_seconds': 86400
+        'duration_seconds': 86400,
     },
     {
         'id': 'cgtn_news',
@@ -44,7 +50,7 @@ CLEAN_FEEDS = [
         'stream_type': 'hls',
         'thumbnail': '',
         'description': 'CGTN English - 24/7 global news coverage',
-        'duration_seconds': 86400
+        'duration_seconds': 86400,
     },
     {
         'id': 'bloomberg_tv',
@@ -56,7 +62,7 @@ CLEAN_FEEDS = [
         'stream_type': 'hls',
         'thumbnail': '',
         'description': 'Bloomberg TV - global markets, business & finance',
-        'duration_seconds': 86400
+        'duration_seconds': 86400,
     },
     {
         'id': 'trt_world',
@@ -68,7 +74,7 @@ CLEAN_FEEDS = [
         'stream_type': 'hls',
         'thumbnail': '',
         'description': 'TRT World - 24/7 international news from Turkey',
-        'duration_seconds': 86400
+        'duration_seconds': 86400,
     },
     {
         'id': 'rt_news',
@@ -80,33 +86,96 @@ CLEAN_FEEDS = [
         'stream_type': 'hls',
         'thumbnail': '',
         'description': 'RT News - 24/7 live international coverage',
-        'duration_seconds': 86400
+        'duration_seconds': 86400,
     },
 ]
+
+
+def _load_schedule_json():
+    """Load clean_schedule.json and return (feeds_list, schedule_list, program_blocks)."""
+    try:
+        if os.path.exists(_SCHEDULE_JSON_PATH):
+            with open(_SCHEDULE_JSON_PATH, 'r') as f:
+                data = json.load(f)
+            feeds = data.get('feeds', [])
+            schedule = data.get('schedule', [])
+            blocks = data.get('program_blocks', {})
+            if feeds and schedule:
+                return feeds, schedule, blocks
+    except Exception as e:
+        print(f"[tv_scheduler] Warning: Failed to load clean_schedule.json: {e}")
+    return None, None, None
+
+
+def _init_feeds():
+    """Initialize CLEAN_FEEDS and SCHEDULE from JSON or fallback."""
+    feeds, schedule, blocks = _load_schedule_json()
+    if feeds and schedule:
+        return feeds, schedule, blocks, True
+    return _FALLBACK_FEEDS, [], {}, False
+
+
+CLEAN_FEEDS, _LOADED_SCHEDULE, _LOADED_BLOCKS, _USING_JSON_SCHEDULE = _init_feeds()
+
 
 # =============================================
 # CONTENT LIBRARY (maps categories -> lists)
 # Required by server.py imports
 # =============================================
-CONTENT_LIBRARY = {
-    'space': [{'id': f['id'], 'title': f['title'], 'video_url': f['video_url'], 'category': f['category'], 'stream_type': f['stream_type']} for f in CLEAN_FEEDS if f['category'] == 'SPACE'],
-    'news': [{'id': f['id'], 'title': f['title'], 'video_url': f['video_url'], 'category': f['category'], 'stream_type': f['stream_type']} for f in CLEAN_FEEDS if f['category'] == 'NEWS'],
-    'finance': [{'id': f['id'], 'title': f['title'], 'video_url': f['video_url'], 'category': f['category'], 'stream_type': f['stream_type']} for f in CLEAN_FEEDS if f['category'] == 'FINANCE'],
-}
+def _build_content_library(feeds):
+    lib = {}
+    for f in feeds:
+        cat = f.get('category', 'OTHER').lower()
+        if cat not in lib:
+            lib[cat] = []
+        lib[cat].append({
+            'id': f['id'],
+            'title': f['title'],
+            'video_url': f['video_url'],
+            'category': f['category'],
+            'stream_type': f.get('stream_type', 'hls'),
+        })
+    return lib
 
+
+CONTENT_LIBRARY = _build_content_library(CLEAN_FEEDS)
 CONTENT_CATEGORIES = list(CONTENT_LIBRARY.keys())
 
+
 # Program schedule blocks (hour -> program name)
-TV_PROGRAM_SCHEDULE = {
-    0: "Late Night News", 1: "Late Night News", 2: "Late Night News",
-    3: "Early Morning", 4: "Early Morning", 5: "Early Morning",
-    6: "Morning News", 7: "Morning News", 8: "Morning News",
-    9: "Mid-Morning", 10: "Mid-Morning", 11: "Mid-Morning",
-    12: "Afternoon Live", 13: "Afternoon Live", 14: "Afternoon Live",
-    15: "Afternoon Live", 16: "Evening News", 17: "Evening News",
-    18: "Prime Time", 19: "Prime Time", 20: "Prime Time",
-    21: "Night Watch", 22: "Night Watch", 23: "Night Watch",
-}
+def _build_program_schedule(blocks):
+    """Build hour -> program name mapping from loaded blocks."""
+    schedule = {}
+    if blocks:
+        for name, info in blocks.items():
+            for h in info.get('hours', []):
+                schedule[h] = name
+    # Fill any missing hours
+    for h in range(24):
+        if h not in schedule:
+            if h < 3:
+                schedule[h] = "Late Night"
+            elif h < 6:
+                schedule[h] = "Early Morning"
+            elif h < 9:
+                schedule[h] = "Morning Show"
+            elif h < 12:
+                schedule[h] = "Mid-Morning"
+            elif h < 15:
+                schedule[h] = "Afternoon Live"
+            elif h < 17:
+                schedule[h] = "Caribbean Afternoon"
+            elif h < 19:
+                schedule[h] = "Evening News"
+            elif h < 22:
+                schedule[h] = "Prime Time"
+            else:
+                schedule[h] = "Night Session"
+    return schedule
+
+
+TV_PROGRAM_SCHEDULE = _build_program_schedule(_LOADED_BLOCKS)
+
 
 # Caches
 _schedule_cache = {}
@@ -122,43 +191,109 @@ VIEWER_VARIANCE = 50000
 
 
 def _get_current_feed():
-    """Get the current feed based on time rotation (30-min slots)."""
+    """Get the current feed based on time rotation (30-min slots).
+    
+    If we have a loaded schedule (48 slots from clean_schedule.json),
+    use slot_index directly to pick from the schedule.
+    Otherwise, rotate through CLEAN_FEEDS.
+    """
     now = datetime.datetime.now(datetime.timezone.utc)
     slot_index = (now.hour * 2) + (now.minute // 30)
-    feed_index = slot_index % len(CLEAN_FEEDS)
-    return CLEAN_FEEDS[feed_index], slot_index, now
+
+    if _USING_JSON_SCHEDULE and _LOADED_SCHEDULE:
+        idx = slot_index % len(_LOADED_SCHEDULE)
+        slot_data = _LOADED_SCHEDULE[idx]
+        feed = {
+            'id': slot_data.get('id', f'slot_{idx}'),
+            'title': slot_data.get('title', 'ZTV Live'),
+            'video_url': slot_data.get('video_url', ''),
+            'fallback_url': slot_data.get('fallback_url', ''),
+            'category': slot_data.get('category', 'NEWS'),
+            'source': slot_data.get('source', 'ZTV'),
+            'stream_type': slot_data.get('stream_type', 'hls'),
+            'thumbnail': slot_data.get('thumbnail', ''),
+            'description': slot_data.get('description', ''),
+            'duration_seconds': slot_data.get('duration_seconds', 1800),
+            'program_block': slot_data.get('program_block', ''),
+        }
+        return feed, slot_index, now
+    else:
+        feed_index = slot_index % len(CLEAN_FEEDS)
+        return CLEAN_FEEDS[feed_index], slot_index, now
+
+
+def _get_next_feed(slot_index):
+    """Get the next feed after the given slot index."""
+    next_slot = (slot_index + 1) % 48
+    if _USING_JSON_SCHEDULE and _LOADED_SCHEDULE:
+        idx = next_slot % len(_LOADED_SCHEDULE)
+        slot_data = _LOADED_SCHEDULE[idx]
+        return {
+            'id': slot_data.get('id', f'slot_{idx}'),
+            'title': slot_data.get('title', 'ZTV Live'),
+            'category': slot_data.get('category', 'NEWS'),
+            'stream_type': slot_data.get('stream_type', 'hls'),
+            'video_url': slot_data.get('video_url', ''),
+        }
+    else:
+        return CLEAN_FEEDS[next_slot % len(CLEAN_FEEDS)]
+
+
+def _detect_stream_type(feed):
+    """Detect whether feed is HLS or YouTube embed based on URL patterns."""
+    url = feed.get('video_url', '')
+    explicit_type = feed.get('stream_type', '')
+
+    if explicit_type == 'hls' or url.endswith('.m3u8'):
+        return 'hls'
+    if 'youtube.com/embed' in url or 'youtu.be' in url:
+        return 'youtube'
+    if explicit_type:
+        return explicit_type
+    return 'hls'
 
 
 def get_live_sync():
-    """Primary 24/7 Sync Hub - Serves HLS Clean Feeds.
+    """Primary 24/7 Sync Hub.
     
-    Returns the full JSON structure expected by the frontend WatchPageV2.
+    Serves the current feed (HLS or YouTube) to the frontend WatchPageV2.
+    The response structure is designed to work with UniversalPlayer which
+    checks stream_type to decide between HLSPlayer and YouTubePlayer.
     """
     current, slot_index, now = _get_current_feed()
-    next_feed = CLEAN_FEEDS[(slot_index + 1) % len(CLEAN_FEEDS)]
+    next_feed = _get_next_feed(slot_index)
 
-    # Time within current 30-min slot
     slot_start_minute = (now.minute // 30) * 30
     elapsed_seconds = (now.minute - slot_start_minute) * 60 + now.second
     remaining_seconds = 1800 - elapsed_seconds
     viewer_count = VIEWER_BASE + random.randint(0, VIEWER_VARIANCE)
-    
+
     hour = now.hour
-    program_name = TV_PROGRAM_SCHEDULE.get(hour, "ZTV Live")
+    program_name = current.get('program_block') or TV_PROGRAM_SCHEDULE.get(hour, "ZTV Live")
+
+    stream_type = _detect_stream_type(current)
+    video_url = current.get('video_url', '')
+    fallback_url = current.get('fallback_url', '')
+
+    # For YouTube embeds: set embed_url to the YouTube URL.
+    # For HLS: embed_url = video_url (the .m3u8)
+    if stream_type == 'youtube':
+        embed_url = video_url
+    else:
+        embed_url = video_url
 
     return {
-        # Top-level fields the frontend reads
-        "video_url": current['video_url'],
-        "embed_url": current['video_url'],
-        "fallback_url": current.get('fallback_url', ''),
-        "video_id": current['id'],
-        "title": current['title'],
-        "category": current['category'],
+        "video_url": video_url,
+        "embed_url": embed_url,
+        "fallback_url": fallback_url,
+        "video_id": current.get('id', ''),
+        "title": current.get('title', 'ZTV Live'),
+        "category": current.get('category', 'GENERAL'),
         "thumbnail": current.get('thumbnail', ''),
         "source": current.get('source', 'ZTV'),
-        "stream_type": current.get('stream_type', 'hls'),
-        "duration_seconds": current.get('duration_seconds', 86400),
-        "playback_duration": current.get('duration_seconds', 86400),
+        "stream_type": stream_type,
+        "duration_seconds": current.get('duration_seconds', 1800),
+        "playback_duration": current.get('duration_seconds', 1800),
         "elapsed_seconds": elapsed_seconds,
         "remaining_seconds": remaining_seconds,
         "start_from_seconds": 0,
@@ -170,20 +305,19 @@ def get_live_sync():
         "viewer_count": viewer_count,
         "status": "live",
 
-        # Nested now_playing
         "now_playing": {
-            "id": current['id'],
-            "title": current['title'],
-            "category": current['category'],
-            "video_url": current['video_url'],
-            "embed_url": current['video_url'],
-            "fallback_url": current.get('fallback_url', ''),
+            "id": current.get('id', ''),
+            "title": current.get('title', 'ZTV Live'),
+            "category": current.get('category', 'GENERAL'),
+            "video_url": video_url,
+            "embed_url": embed_url,
+            "fallback_url": fallback_url,
             "thumbnail": current.get('thumbnail', ''),
             "source": current.get('source', 'ZTV'),
-            "stream_type": current.get('stream_type', 'hls'),
+            "stream_type": stream_type,
             "description": current.get('description', ''),
-            "duration_seconds": current.get('duration_seconds', 86400),
-            "playback_duration": current.get('duration_seconds', 86400),
+            "duration_seconds": current.get('duration_seconds', 1800),
+            "playback_duration": current.get('duration_seconds', 1800),
             "elapsed_seconds": elapsed_seconds,
             "remaining_seconds": remaining_seconds,
             "progress_percent": round((elapsed_seconds / 1800) * 100, 2),
@@ -194,20 +328,18 @@ def get_live_sync():
             "program_block": program_name,
         },
 
-        # Program block
         "program_block": {
             "name": program_name,
-            "description": current.get('description', f"Live {current['category']} on ZTV")
+            "description": current.get('description', f"Live {current.get('category', '')} on ZTV"),
         },
 
-        # Up next
         "up_next": {
-            "id": next_feed['id'],
-            "title": next_feed['title'],
-            "category": next_feed['category'],
-            "stream_type": next_feed.get('stream_type', 'hls'),
-            "starts_in_seconds": remaining_seconds
-        }
+            "id": next_feed.get('id', ''),
+            "title": next_feed.get('title', ''),
+            "category": next_feed.get('category', ''),
+            "stream_type": _detect_stream_type(next_feed),
+            "starts_in_seconds": remaining_seconds,
+        },
     }
 
 
@@ -227,15 +359,28 @@ def get_upcoming_programs(count=3):
     _, slot_index, _ = _get_current_feed()
     upcoming = []
     for i in range(1, count + 1):
-        feed = CLEAN_FEEDS[(slot_index + i) % len(CLEAN_FEEDS)]
-        upcoming.append({
-            "id": feed['id'],
-            "title": feed['title'],
-            "category": feed['category'],
-            "stream_type": feed.get('stream_type', 'hls'),
-            "video_url": feed['video_url'],
-            "starts_in_minutes": i * 30,
-        })
+        next_slot = (slot_index + i) % 48
+        if _USING_JSON_SCHEDULE and _LOADED_SCHEDULE:
+            idx = next_slot % len(_LOADED_SCHEDULE)
+            slot_data = _LOADED_SCHEDULE[idx]
+            upcoming.append({
+                "id": slot_data.get('id', f'slot_{idx}'),
+                "title": slot_data.get('title', 'ZTV Live'),
+                "category": slot_data.get('category', 'NEWS'),
+                "stream_type": slot_data.get('stream_type', 'hls'),
+                "video_url": slot_data.get('video_url', ''),
+                "starts_in_minutes": i * 30,
+            })
+        else:
+            feed = CLEAN_FEEDS[next_slot % len(CLEAN_FEEDS)]
+            upcoming.append({
+                "id": feed['id'],
+                "title": feed['title'],
+                "category": feed['category'],
+                "stream_type": feed.get('stream_type', 'hls'),
+                "video_url": feed['video_url'],
+                "starts_in_minutes": i * 30,
+            })
     return upcoming
 
 
@@ -246,6 +391,23 @@ def get_upcoming_content(count=3):
 
 def get_dynamic_schedule():
     """Return a day's worth of schedule slots."""
+    if _USING_JSON_SCHEDULE and _LOADED_SCHEDULE:
+        slots = []
+        for slot_data in _LOADED_SCHEDULE:
+            slots.append({
+                "slot": slot_data.get('slot', 0),
+                "hour": slot_data.get('hour', 0),
+                "half": slot_data.get('half', 0),
+                "title": slot_data.get('title', ''),
+                "category": slot_data.get('category', ''),
+                "stream_type": slot_data.get('stream_type', 'hls'),
+                "video_url": slot_data.get('video_url', ''),
+                "program_block": slot_data.get('program_block', 'ZTV Live'),
+                "source": slot_data.get('source', 'ZTV'),
+                "description": slot_data.get('description', ''),
+            })
+        return slots
+
     now = datetime.datetime.now(datetime.timezone.utc)
     slots = []
     for hour in range(24):
@@ -279,6 +441,28 @@ def get_current_program_block():
 def get_program_schedule():
     """Return program schedule map."""
     return TV_PROGRAM_SCHEDULE
+
+
+def reload_schedule():
+    """Hot-reload the schedule from clean_schedule.json without restart."""
+    global CLEAN_FEEDS, _LOADED_SCHEDULE, _LOADED_BLOCKS, _USING_JSON_SCHEDULE
+    global CONTENT_LIBRARY, CONTENT_CATEGORIES, TV_PROGRAM_SCHEDULE
+
+    feeds, schedule, blocks, using_json = _init_feeds()
+    CLEAN_FEEDS = feeds
+    _LOADED_SCHEDULE = schedule
+    _LOADED_BLOCKS = blocks
+    _USING_JSON_SCHEDULE = using_json
+    CONTENT_LIBRARY = _build_content_library(CLEAN_FEEDS)
+    CONTENT_CATEGORIES = list(CONTENT_LIBRARY.keys())
+    TV_PROGRAM_SCHEDULE = _build_program_schedule(_LOADED_BLOCKS)
+    clear_all_caches()
+    return {
+        "success": True,
+        "using_json": using_json,
+        "feeds": len(CLEAN_FEEDS),
+        "slots": len(_LOADED_SCHEDULE),
+    }
 
 
 # --- Pinning ---
