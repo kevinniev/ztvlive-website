@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://ztvlivestream.com/:path*",
+      "permanent": true
+    }
+  ]
+}
