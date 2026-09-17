@@ -5,13 +5,8 @@
   "outputDirectory": ".",
   "redirects": [
     {
-      "source": "/",
-      "destination": "https://ztvlivestream.com/",
-      "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "destination": "https://ztvlivestream.com/:path*",
+      "source": "/(.*)",
+      "destination": "https://ztvlivestream.com/$1",
       "permanent": true
     }
   ]
